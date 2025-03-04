@@ -1,7 +1,7 @@
 package com.example.backend.domain.user.entity;
 
 import com.example.backend.domain.subscription.entity.Category;
-import com.example.backend.domain.subscription.entity.Order;
+import com.example.backend.domain.subscription.entity.Subscription;
 import com.example.backend.global.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -37,7 +37,7 @@ public class Expenditure extends BaseTimeEntity {
     private Category category;
 
     @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = true)
-    private Order order;
+    @JoinColumn(name = "subscription_id", nullable = true)
+    private Subscription subscription;
 
 }
