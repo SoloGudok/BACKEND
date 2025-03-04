@@ -29,6 +29,6 @@ public class ServiceEntity {
 
     @OneToOne
     @JoinColumn(name = "description_id")
-    private DescriptionEntity description;
+    private Description description;
 
 }
