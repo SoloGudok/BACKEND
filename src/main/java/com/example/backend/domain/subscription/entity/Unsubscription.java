@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @Entity
-@Table(name = "unscription")
+@Table(name = "unsubscription")
 public class Unsubscription extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
