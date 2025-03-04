@@ -14,7 +14,7 @@ public class CardImg {
     private Long id;
 
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
-    private String cardImgName;
+    private String cardImgUrl;
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="card_id")

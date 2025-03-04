@@ -7,8 +7,8 @@ import lombok.Getter;
 
 @Getter
 @Entity
-@Table(name = "description")
-public class Description extends BaseTimeEntity {
+@Table(name = "unscription")
+public class Unsubscription extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, columnDefinition = "bigint")

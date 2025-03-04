@@ -15,10 +15,10 @@ public class SubscriptionImg {
     @Column(nullable = false, columnDefinition = "bigint")
     private Long id;
 
-    @Column(name = "service_img_name")
-    private String serviceImgName;
+    @Column(name = "subscription_img_url")
+    private String subscriptionImgUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "service_id")
-    private Order order;
+    @JoinColumn(name = "subscription_id")
+    private Subscription subscription;
 }

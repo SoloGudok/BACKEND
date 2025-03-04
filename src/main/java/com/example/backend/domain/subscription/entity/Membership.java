@@ -9,9 +9,9 @@ import org.hibernate.annotations.SQLDelete;
 
 @Getter
 @Entity
-@SQLDelete(sql = "UPDATE order SET deleted_at = NOW() where id = ?")
-@Table(name = "Order")
-public class Order extends BaseTimeEntity {
+@SQLDelete(sql = "UPDATE membership SET deleted_at = NOW() where id = ?")
+@Table(name = "Membership")
+public class Membership extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

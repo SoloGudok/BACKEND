@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 
 @Getter
-@SQLDelete(sql = "UPDATE order_detail SET deleted_at = NOW() where id = ?")
+@SQLDelete(sql = "UPDATE membership_detail SET deleted_at = NOW() where id = ?")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "order_detail")
-public class OrderDetail extends BaseTimeEntity {
+@Table(name = "membership_detail")
+public class MembershipDetail extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, columnDefinition = "bigint")
@@ -26,7 +26,7 @@ public class OrderDetail extends BaseTimeEntity {
     private Subscription subscription;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+    @JoinColumn(name = "membership_id", nullable = false)
+    private Membership membership;
 
 }
