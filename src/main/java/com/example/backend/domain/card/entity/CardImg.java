@@ -1,18 +1,20 @@
-package com.example.backend.card.entity;
+package com.example.backend.domain.card.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 @Entity
-@Table(name = "Card_img")
+@Table(name = "card_img")
 public class CardImg {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long card_img_id;
-    private String card_img_name;
+    @Column(nullable = false, columnDefinition = "bigint")
+    private Long id;
+
+    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
+    private String cardImgName;
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="card_id")
