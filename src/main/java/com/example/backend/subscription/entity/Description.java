@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @Setter
 @Entity
 @Table(name = "Description")
-public class DescriptionEntity {
+public class Description {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long description_id;

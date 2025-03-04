@@ -1,6 +1,5 @@
 package com.example.backend.subscription.entity;
 
-import com.example.backend.user.entity.CategoryEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,11 +8,11 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "Service_img")
-public class ServiceImgEntity {
+public class ServiceImg {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long service_img_id;
-    private String service_img_url;
+    private String service_img_name;
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="service_id")
