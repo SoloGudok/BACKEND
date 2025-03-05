@@ -31,5 +31,9 @@ public class Subscription extends BaseTimeEntity {
     @Column(name = "homepage", nullable = true, columnDefinition = "VARCHAR(255)")
     private String homepage;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
 
 }
