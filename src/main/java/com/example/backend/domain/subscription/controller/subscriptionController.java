@@ -8,4 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/subscription")
 @Tag(name = "Subscription", description = "구독 관련 api입니다.")
 public class subscriptionController {
+
+
+
 }

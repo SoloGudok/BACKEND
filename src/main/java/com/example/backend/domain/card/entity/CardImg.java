@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "card_img")
 public class CardImg {
@@ -19,4 +20,6 @@ public class CardImg {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="card_id")
     private Card card;
+
+
 }
