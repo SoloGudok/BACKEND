@@ -16,6 +16,7 @@ public class RecommendServiceImpl implements RecommendService {
     private final RecommendRepository recommendRepository;
 
 
+    @Override
     public List<RecommendDTO> getRecommendations() {
         List<Object[]> results = recommendRepository.getSubscriptionRecommendations();
         return results.stream()
@@ -23,6 +24,7 @@ public class RecommendServiceImpl implements RecommendService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public RecommendDTO convertToDTO(Object[] row) {
         return RecommendDTO.builder()
                 .price(((Number) row[0]).longValue())          // sub.price
@@ -36,6 +38,30 @@ public class RecommendServiceImpl implements RecommendService {
                 .name((String) row[8])                        // sub.name
                 .subscription_img_id(((Number) row[9]).intValue()) // sub_img.id
                 .subscription_img_url((String) row[10])       // sub_img.subscription_img_url
+                .build();
+    }
+
+    @Override
+    public List<RecommendDTO> getCardRecommendations() {
+        List<Object[]> results = recommendRepository.getCardRecommendations();
+        return results.stream()
+                .map(this::convertCardToDTO) // Object[] → RecommendDTO 변환
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public RecommendDTO convertCardToDTO(Object[] row) {
+        return RecommendDTO.builder()
+                .created_at(convertToLocalDateTime(row[0]))
+                .deleted_at(convertToLocalDateTime(row[1]))
+                .card_id(((Number) row[2]).intValue())
+                .modified_at(convertToLocalDateTime(row[3]))
+                .card_name((String) row[4])
+                .description((String) row[5])
+                .short_description((String) row[6])
+                .category_id(((Number) row[7]).intValue())
+                .card_img_id(((Number) row[8]).intValue())
+                .card_img_url((String) row[9])
                 .build();
     }
 

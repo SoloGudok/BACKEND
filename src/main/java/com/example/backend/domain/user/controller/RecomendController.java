@@ -28,4 +28,10 @@ public class RecomendController {
         List<RecommendDTO> recommendations = recommendService.getRecommendations();
         return ResponseEntity.ok(recommendations);
     }
+
+    @GetMapping("/card")
+    public ResponseEntity<List<RecommendDTO>> getRecommendationsByCard() {
+        List<RecommendDTO> recommendations = recommendService.getCardRecommendations();
+        return ResponseEntity.ok(recommendations);
+    }
 }
