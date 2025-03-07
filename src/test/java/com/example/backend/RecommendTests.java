@@ -23,4 +23,12 @@ public class RecommendTests {
             System.out.println(Arrays.toString(arr));
         }
     }
+
+    @Test
+    public void test2() {
+        List<Object[]> result = repo.getCardRecommendations();
+        for (Object[] arr : result) {
+            System.out.println(Arrays.toString(arr));
+        }
+    }
 }

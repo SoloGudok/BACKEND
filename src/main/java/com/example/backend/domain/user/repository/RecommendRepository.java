@@ -58,9 +58,42 @@ SELECT sub.price, sub.category_id, sub.created_at, sub.deleted_at,\s
 
 
         /*
-     카드 추천 쿼리 (made by 민규)
-     첫 제작 : 2025-03-07
-     상태 : 미완성
-     로직
-     */
+         카드 추천 쿼리 (made by 민규)
+         첫 제작 : 2025-03-07
+         상태 : 완성
+         로직
+            1. expenditure -> 소비 횟수가 많은 카테고리 1위까지 추리기
+
+            2. expenditure -> 소비액이 많은 카테고리 1위까지 추리기
+
+            3. 1,2 Union
+
+            4. 해당 카테고리의 카드 나열
+         */
+        @Query(value="""
+
+            WITH TopCategories AS (
+     (SELECT c.id AS id FROM category c
+      LEFT JOIN expenditure e ON e.category_id = c.id
+      GROUP BY c.id
+      ORDER BY SUM(e.amount) DESC
+      LIMIT 1)
+ 
+     UNION
+ 
+     (SELECT c.id AS id FROM category c
+      LEFT JOIN expenditure e ON e.category_id = c.id
+      GROUP BY c.id
+      ORDER BY COUNT(e.id) DESC
+      LIMIT 1)
+ )
+SELECT cd.created_at, cd.deleted_at, cd.id AS card_id,
+       cd.modified_at, cd.card_name, cd.description, cd.short_description,
+       cd.category_id, cd_img.id AS card_img_id, cd_img.card_img_url
+ FROM card cd
+     LEFT JOIN card_img cd_img ON cd_img.card_id = cd.id
+     LEFT JOIN category c ON cd.category_id = c.id
+ WHERE c.id IN (SELECT id FROM TopCategories)
+""", nativeQuery = true)
+        List<Object[]> getCardRecommendations();
 }
