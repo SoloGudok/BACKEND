@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import org.hibernate.annotations.SQLDelete;
 
+import java.time.LocalDateTime;
+
 
 @Getter
 @Entity
@@ -24,7 +26,6 @@ public class Membership extends BaseTimeEntity {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
-
 
 
 }
