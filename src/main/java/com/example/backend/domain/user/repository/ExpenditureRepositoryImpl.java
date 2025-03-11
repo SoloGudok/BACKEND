@@ -8,9 +8,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -29,7 +27,7 @@ public class ExpenditureRepositoryImpl implements ExpenditureRepositoryCustom {
      * 월별 소비내역 조회 (커서 기반 페이지네이션 적용)
      */
     @Override
-    public Page<Expenditure> findByMonthWithCursor(Long categoryId, Long cursorId, Pageable pageable, LocalDate startDate, LocalDate endDate) {
+    public Slice<Expenditure> findByMonthWithCursor(Long categoryId, Long cursorId, Pageable pageable, LocalDate startDate, LocalDate endDate) {
         BooleanExpression categoryCondition = (categoryId != null) ? expenditure.category.id.eq(categoryId) : null;
         BooleanExpression dateCondition = expenditure.createdAt.between(startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
         BooleanExpression cursorCondition = cursorId != null ? expenditure.id.gt(cursorId) : null;
@@ -45,7 +43,7 @@ public class ExpenditureRepositoryImpl implements ExpenditureRepositoryCustom {
                 .limit(pageable.getPageSize()+1)  // 페이지네이션 limit 설정 (페이지 크기만큼)
                 .fetch();
 
-        return new PageImpl<>(expenditures, pageable, expenditures.size());
+        return new SliceImpl<>(expenditures, pageable, expenditures.size() > pageable.getPageSize());
     }
 
     /**

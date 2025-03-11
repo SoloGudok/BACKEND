@@ -8,6 +8,7 @@ import com.example.backend.domain.user.repository.ExpenditureRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +34,7 @@ public class ExpenditureService {
      */
     public ExpenditureResponseDto getExpenditureList(Long categoryId, Long cursorId, Pageable pageable, LocalDate startDate, LocalDate endDate) {
         // 소비내역 조회 (Page 객체 반환)
-        Page<Expenditure> expenditures = expenditureRepository.findByMonthWithCursor(
+        Slice<Expenditure> expenditures = expenditureRepository.findByMonthWithCursor(
                 categoryId, cursorId, pageable, startDate, endDate
         );
 
@@ -42,7 +43,7 @@ public class ExpenditureService {
                 categoryId, startDate, endDate
         );
 
-        List<Expenditure> expenditureList = expenditures.getContent();  // Page → List 변환
+        List<Expenditure> expenditureList = expenditures.getContent();  // Slice → List 변환
 
         boolean hasNext = expenditures.hasNext();  // 다음 페이지가 있는지 확인
         Long nextCursor = (!expenditureList.isEmpty() && hasNext)
@@ -50,7 +51,7 @@ public class ExpenditureService {
                 : null;
 
 
-        // Page<Expenditure>를 ExpenditureDetailsDto로 변환하여 반환
+        // Slice<Expenditure>를 ExpenditureDetailsDto로 변환하여 반환
         return ExpenditureResponseDto.fromList(
                 expenditureList,
                 Double.valueOf(summary.getTotalExpense()),
