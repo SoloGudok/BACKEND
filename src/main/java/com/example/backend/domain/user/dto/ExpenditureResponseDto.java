@@ -6,6 +6,8 @@ import lombok.Getter;
 import org.springframework.data.domain.Page;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Getter
@@ -14,8 +16,9 @@ public class ExpenditureResponseDto {
 
     private Double totalExpense;
     private Double totalIncome;
-    private Page<ExpenditureDetailsDto> expenditures;  // Page 객체를 포함
-    private Long nextCursor;
+    private List<ExpenditureDetailsDto> expenditures;  // 리스트로 변경
+    private boolean hasNext;
+    private Long nextCursor;  // 다음 페이지의 커서 ID
 
     @Getter
     @AllArgsConstructor
@@ -39,11 +42,14 @@ public class ExpenditureResponseDto {
         }
     }
 
-    // 엔티티 리스트를 Page DTO로 변환하는 메서드
-    public static ExpenditureResponseDto fromPage(
-            Page<Expenditure> page, Double totalExpense, Double totalIncome, Long nextCursor) {
-        Page<ExpenditureDetailsDto> expenditureDtos = page.map(ExpenditureDetailsDto::fromEntity);
+    // **Page 대신 List를 사용하여 변환하는 메서드**
+    public static ExpenditureResponseDto fromList(
+            List<Expenditure> expenditures, Double totalExpense, Double totalIncome, boolean hasNext, Long nextCursor) {
 
-        return new ExpenditureResponseDto(totalExpense, totalIncome, expenditureDtos, nextCursor);
+        List<ExpenditureDetailsDto> expenditureDtos = expenditures.stream()
+                .map(ExpenditureDetailsDto::fromEntity)
+                .collect(Collectors.toList());
+
+        return new ExpenditureResponseDto(totalExpense, totalIncome, expenditureDtos, hasNext, nextCursor);
     }
 }

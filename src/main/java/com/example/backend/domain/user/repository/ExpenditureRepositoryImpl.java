@@ -33,15 +33,16 @@ public class ExpenditureRepositoryImpl implements ExpenditureRepositoryCustom {
         BooleanExpression categoryCondition = (categoryId != null) ? expenditure.category.id.eq(categoryId) : null;
         BooleanExpression dateCondition = expenditure.createdAt.between(startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
         BooleanExpression cursorCondition = cursorId != null ? expenditure.id.gt(cursorId) : null;
+        BooleanExpression notDeletedCondition = expenditure.deletedAt.isNull();
 
         // 쿼리 실행
         List<Expenditure> expenditures = queryFactory
                 .selectFrom(expenditure)
                 .leftJoin(expenditure.category).fetchJoin()  // 필요한 경우 추가적인 join
-                .where(categoryCondition, dateCondition, cursorCondition)
+                .where(categoryCondition, dateCondition, cursorCondition, notDeletedCondition)
                 .orderBy(expenditure.createdAt.asc(), expenditure.id.asc())  // 생성일자 순으로 정렬
                 .offset(pageable.getOffset())  // 페이지네이션 offset 설정
-                .limit(pageable.getPageSize())  // 페이지네이션 limit 설정 (페이지 크기만큼)
+                .limit(pageable.getPageSize()+1)  // 페이지네이션 limit 설정 (페이지 크기만큼)
                 .fetch();
 
         return new PageImpl<>(expenditures, pageable, expenditures.size());

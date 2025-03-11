@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Service
@@ -41,14 +42,20 @@ public class ExpenditureService {
                 categoryId, startDate, endDate
         );
 
-        // 다음 커서 설정 (Pageable에서는 자동으로 페이지네이션을 처리함)
-        Long nextCursor = expenditures.hasNext() ? expenditures.getContent().get(expenditures.getSize() - 1).getId() : null;
+        List<Expenditure> expenditureList = expenditures.getContent();  // Page → List 변환
+
+        boolean hasNext = expenditures.hasNext();  // 다음 페이지가 있는지 확인
+        Long nextCursor = (!expenditureList.isEmpty() && hasNext)
+                ? expenditureList.get(expenditureList.size() - 1).getId()
+                : null;
+
 
         // Page<Expenditure>를 ExpenditureDetailsDto로 변환하여 반환
-        return ExpenditureResponseDto.fromPage(
-                expenditures,
-                Double.valueOf(summary.getTotalExpense()), // int 값을 Double로 변환
-                Double.valueOf(summary.getTotalIncome()),  // int 값을 Double로 변환
+        return ExpenditureResponseDto.fromList(
+                expenditureList,
+                Double.valueOf(summary.getTotalExpense()),
+                Double.valueOf(summary.getTotalIncome()),
+                hasNext,
                 nextCursor
         );
     }
