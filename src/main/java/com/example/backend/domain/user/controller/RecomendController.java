@@ -2,6 +2,7 @@ package com.example.backend.domain.user.controller;
 
 import com.example.backend.domain.user.dto.RecommendDTO;
 import com.example.backend.domain.user.service.RecommendService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequestMapping("/recommend")
 @Log4j2
 @RequiredArgsConstructor
+@Tag(name = "recommend", description = "추천 관련 api입니다.")
 public class RecomendController {
 
     private final RecommendService recommendService;
