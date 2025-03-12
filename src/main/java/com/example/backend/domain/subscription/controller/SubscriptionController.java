@@ -23,10 +23,10 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "http://localhost:3000")
 @Tag(name = "Subscription", description = "구독 관련 api입니다.")
 @SessionAttributes("selectedSubscriptions")
-public class tempController {
+public class SubscriptionController {
     private final SubscriptionService subscriptionService;
 
-    public tempController(SubscriptionService subscriptionService) {
+    public SubscriptionController(SubscriptionService subscriptionService) {
         this.subscriptionService = subscriptionService;
     }
 
