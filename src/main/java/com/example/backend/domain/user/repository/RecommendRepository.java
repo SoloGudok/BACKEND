@@ -9,7 +9,7 @@ import java.util.List;
 public interface RecommendRepository extends JpaRepository<Expenditure, Long> {
 
     /*
-     구독 서비스 추천 쿼리 (made by 민규)
+     대시보드 3 - 구독 서비스 추천 쿼리 (made by 민규)
      첫 제작 : 2025-03-05
      상태 : 완성
      로직
@@ -52,19 +52,19 @@ SELECT sub.price, sub.category_id, sub.created_at, sub.deleted_at,\s
      SELECT md.subscription_id FROM membership_detail md
      INNER JOIN membership m ON md.membership_id = m.id
      WHERE m.user_id = 1
- )
+ ) LIMIT 3
 """, nativeQuery = true)
     List<Object[]> getSubscriptionRecommendations();
 
 
         /*
-         카드 추천 쿼리 (made by 민규)
+         대시보드 4 - 카드 추천 쿼리 (made by 민규)
          첫 제작 : 2025-03-07
          상태 : 완성
          로직
-            1. expenditure -> 소비 횟수가 많은 카테고리 1위까지 추리기
+            1. expenditure -> 소비 횟수가 많은 카테고리 3위까지 추리기
 
-            2. expenditure -> 소비액이 많은 카테고리 1위까지 추리기
+            2. expenditure -> 소비액이 많은 카테고리 3위까지 추리기
 
             3. 1,2 Union
 
@@ -77,7 +77,7 @@ SELECT sub.price, sub.category_id, sub.created_at, sub.deleted_at,\s
       LEFT JOIN expenditure e ON e.category_id = c.id
       GROUP BY c.id
       ORDER BY SUM(e.amount) DESC
-      LIMIT 1)
+      LIMIT 3)
  
      UNION
  
@@ -85,7 +85,7 @@ SELECT sub.price, sub.category_id, sub.created_at, sub.deleted_at,\s
       LEFT JOIN expenditure e ON e.category_id = c.id
       GROUP BY c.id
       ORDER BY COUNT(e.id) DESC
-      LIMIT 1)
+      LIMIT 3)
  )
 SELECT cd.created_at, cd.deleted_at, cd.id AS card_id,
        cd.modified_at, cd.card_name, cd.description, cd.short_description,
@@ -93,7 +93,7 @@ SELECT cd.created_at, cd.deleted_at, cd.id AS card_id,
  FROM card cd
      LEFT JOIN card_img cd_img ON cd_img.card_id = cd.id
      LEFT JOIN category c ON cd.category_id = c.id
- WHERE c.id IN (SELECT id FROM TopCategories)
+ WHERE c.id IN (SELECT id FROM TopCategories) LIMIT 4
 """, nativeQuery = true)
         List<Object[]> getCardRecommendations();
 }

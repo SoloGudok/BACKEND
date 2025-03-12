@@ -1,6 +1,8 @@
 package com.example.backend.domain.user.service;
 
 import com.example.backend.domain.user.dto.RecommendDTO;
+import com.example.backend.domain.user.repository.RecommendRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
