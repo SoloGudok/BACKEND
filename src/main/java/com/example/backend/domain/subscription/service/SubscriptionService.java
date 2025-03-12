@@ -1,9 +1,11 @@
 package com.example.backend.domain.subscription.service;
 
 import com.example.backend.domain.subscription.dto.CombinationSubscriptionResponseDto;
+import com.example.backend.domain.subscription.dto.SubscriptionDTO;
 import com.example.backend.domain.subscription.dto.SubscriptionRes;
 import com.example.backend.domain.subscription.dto.SubscriptionResponseDto;
 import com.example.backend.domain.subscription.entity.MembershipDetail;
+import com.example.backend.domain.subscription.entity.Subscription;
 import com.example.backend.domain.subscription.repository.MembershipDetailRepository;
 import com.example.backend.domain.subscription.repository.SubscriptionRepository;
 import com.example.backend.domain.user.repository.UserRepository;
@@ -74,6 +76,46 @@ public class SubscriptionService {
                 .homepage(detail.getSubscription().getHomepage())
                 .terminationDate(detail.getCreatedAt().plusMonths(1).toLocalDate()) // 해지일 설정
                 .build();
+    }
+
+
+    /**
+     * 모든 구독 서비스 목록 조회
+     * @return 구독 서비스 DTO 리스트
+     */
+    public List<SubscriptionDTO> getAllSubscriptions() {
+        return subscriptionRepository.findAll().stream()
+                .map(s -> new SubscriptionDTO(s, s.getImageUrl()))  // Subscription 객체와 imageUrl을 전달
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * ID로 특정 구독 서비스 조회
+     * @param id 구독 서비스 ID
+     * @return 구독 서비스 DTO
+     */
+    public SubscriptionDTO getSubscriptionById(Long id) {
+        return subscriptionRepository.findSubscriptionWithImage(id);
+    }
+
+    // 서비스 레이어에 추가할 메서드
+    public boolean unselectSubscriptionById(Long id) {
+        Subscription subscription = subscriptionRepository.findById(id).orElse(null);
+        if (subscription != null) {
+            subscription.setSelected(false); // 선택 상태를 false로 변경
+            subscriptionRepository.save(subscription);
+            return true;
+        }
+        return false;
+    }
+
+
+
+    public List<SubscriptionDTO> getSubscriptionsByCategory(Long categoryId) {
+        List<Subscription> subscriptions = subscriptionRepository.findByCategoryId(categoryId);
+        return subscriptions.stream()
+                .map(subscription -> new SubscriptionDTO(subscription, subscription.getImageUrl())) // ✅ getImageUrl() 사용
+                .collect(Collectors.toList());
     }
 
 }
