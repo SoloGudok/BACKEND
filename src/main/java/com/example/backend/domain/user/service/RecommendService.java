@@ -9,7 +9,7 @@ import java.util.List;
 public interface RecommendService {
 
     /*
-    구독 서비스 추천
+    대시보드 3 - 구독 서비스 추천
     List<Object[]>를 List<DTO>로 바꾸는 작업 - 완성
     (made by 민규)
     */
@@ -17,7 +17,7 @@ public interface RecommendService {
     RecommendDTO convertToDTO(Object[] row);
 
     /*
-    카드 추천
+    대시보드 4 - 카드 추천
     List<Object[]>를 List<DTO>로 바꾸는 작업 - 완성
     (made by 민규)
     */

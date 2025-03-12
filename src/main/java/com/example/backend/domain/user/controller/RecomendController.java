@@ -21,20 +21,14 @@ public class RecomendController {
 
     private final RecommendService recommendService;
 
-    public RecomendController(RecommendService recommendService) {
-        this.recommendService = recommendService;
-    }
-
-    /*
-    구독 서비스 추천 기능 - 완성
-    (made by 민규)
-    */
+    // 대시보드 3 - 구독 서비스 추천 기능 - 완성 (민규)
     @GetMapping("/subscription")
     public ResponseEntity<List<RecommendDTO>> getRecommendations() {
         List<RecommendDTO> recommendations = recommendService.getRecommendations();
         return ResponseEntity.ok(recommendations);
     }
 
+    // 대시보드 4 - 카드 추천 기능 - 완성 (민규)
     @GetMapping("/card")
     public ResponseEntity<List<RecommendDTO>> getRecommendationsByCard() {
         List<RecommendDTO> recommendations = recommendService.getCardRecommendations();

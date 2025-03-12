@@ -24,7 +24,6 @@ public interface RecommendRepository extends JpaRepository<Expenditure, Long> {
         5. 해당 카테고리의 구독 서비스 나열
      */
     @Query(value="""
-
             WITH TopCategories AS (
      (SELECT c.id AS id FROM category c
       LEFT JOIN expenditure e ON e.category_id = c.id

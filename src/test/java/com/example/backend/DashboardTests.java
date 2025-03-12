@@ -13,12 +13,22 @@ public class DashboardTests {
     @Autowired
     private DashboardRepository repo;
 
-    // 대시보드 3 - 구독 중인 서비스 이미지 나열 (민규)
+    // 대시보드 1 - 구독 중인 서비스 이미지 나열 (민규)
     @Test
     public void test1() {
         List<String> result = repo.getSubscribing();
         for (String str : result) {
             System.out.println(str);
+        }
+    }
+
+
+    // 대시보드 2.1 - 소비 차트 (민규)
+    @Test
+    public void test2() {
+        List<Object[]> result = repo.getChart1();
+        for (Object[] arr : result) {
+            System.out.println(Arrays.toString(arr));
         }
     }
 }
