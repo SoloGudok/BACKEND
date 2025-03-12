@@ -1,9 +1,12 @@
 package com.example.backend.domain.card.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -22,4 +25,7 @@ public class CardImg {
     private Card card;
 
 
+    public Long getCardId() {
+        return card != null ? card.getId() : null; // card가 null이 아니면 card의 ID를 반환
+    }
 }

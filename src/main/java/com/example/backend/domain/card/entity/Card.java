@@ -1,15 +1,18 @@
 package com.example.backend.domain.card.entity;
-
+import com.example.backend.domain.subscription.entity.Category;
 import com.example.backend.global.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
-
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
+
 @Table(name = "card")
 public class Card extends BaseTimeEntity {
     @Id
@@ -29,5 +32,11 @@ public class Card extends BaseTimeEntity {
     //card와 cardImg의 관계 설정
     @OneToMany(mappedBy = "card", fetch = FetchType.LAZY)
     private List<CardImg> cardImgs;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+
 
 }
