@@ -31,4 +31,13 @@ public class DashboardTests {
             System.out.println(Arrays.toString(arr));
         }
     }
+
+    // 대시보드 2.2 - 구독 차트 (민규)
+    @Test
+    public void test3() {
+        List<Object[]> results = repo.getChart2();
+        for (Object[] arr : results) {
+            System.out.println(Arrays.toString(arr));
+        }
+    }
 }
