@@ -16,16 +16,16 @@ public class Card extends BaseTimeEntity {
     @Column(nullable = false, columnDefinition = "BIGINT")
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
+    @Column(name="card_name", nullable = false, columnDefinition = "VARCHAR(255)")
     private String cardName;
 
     @Column(nullable = true, columnDefinition = "VARCHAR(500)")
-    private String shortDescription;
+    private String short_Description;
 
     @Column(nullable = true, columnDefinition = "TEXT")
     private String description;
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    private Category category_id;
 }
