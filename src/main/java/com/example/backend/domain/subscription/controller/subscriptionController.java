@@ -96,10 +96,10 @@ public class subscriptionController {
 
     // 고객에게 추천하는 카드
     String[][] _recommendationCard = {
-            { "신한카드 We Healing", "https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditPOCDMG.gif" },
-            { "신한카드 콰트케어", "https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditPOCDMG.gif" },
-            { "신한카드 SmartNest", "https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditPOCDMG.gif" },
-            { "신한카드 스노우VIP+", "https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditPOCDMG.gif" }
+            { "신한카드 We Healing","쇼츠디스크립션입니다1","디스크립션입니다1","https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditPOCDMG.gif" },
+            { "신한카드 콰트케어","쇼츠디스크립션입니다2","디스크립션입니다2", "https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBOADNT.gif" },
+            { "신한카드 SmartNest","쇼츠디스크립션입니다3","디스크립션입니다3", "https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBSCDNG.gif" },
+            { "신한카드 스노우VIP+","쇼츠디스크립션입니다4","디스크립션입니다4", "https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditPOADHL.gif" }
     };
 
     @GetMapping("/sendDashboardData")
