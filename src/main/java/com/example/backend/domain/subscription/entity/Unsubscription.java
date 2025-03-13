@@ -1,5 +1,6 @@
 package com.example.backend.domain.subscription.entity;
 
+import com.example.backend.domain.user.entity.User;
 import com.example.backend.global.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,4 +24,11 @@ public class Unsubscription extends BaseTimeEntity {
     @Column(name = "approval", nullable = false, columnDefinition = "BOOLEAN")
     private boolean approval;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_id")
+    private Subscription subscription;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }

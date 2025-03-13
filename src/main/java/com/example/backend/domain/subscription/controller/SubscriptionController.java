@@ -42,7 +42,7 @@ public class SubscriptionController {
     }
 
 
-
+    // 기존 구독 리스트
     @GetMapping("/individual")
     public ResponseEntity<List<SubscriptionResponseDto>> getIndividualSubscriptions(@RequestParam Long userId) {
         return ResponseEntity.ok(subscriptionService.getIndividualSubscriptions(userId));
