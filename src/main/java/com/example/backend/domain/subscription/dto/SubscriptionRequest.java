@@ -1,4 +1,4 @@
-package com.example.backend.domain.subscription.entity;
+package com.example.backend.domain.subscription.dto;
 
 public class SubscriptionRequest {
     private Long subscriptionId;
