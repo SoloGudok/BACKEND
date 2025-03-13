@@ -20,6 +20,7 @@ import java.util.List;
 public class DashboardController {
     private final DashboardService dashboardService;
 
+    // 구독중인 서비스 이미지만 나타내는
     @GetMapping("/subscribing")
     public ResponseEntity<List<SubscribingDTO>> getSubscribing() {
         List<SubscribingDTO> subscribingList  = dashboardService.getSubscribing();
