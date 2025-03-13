@@ -6,12 +6,16 @@ import com.example.backend.domain.image.dto.ImageRes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 @Tag(name = "AWS S3 Presigned URL 관리", description = "AWS S3 파일 관리 컨트롤러")
 @RequestMapping("/api/v1/image")
@@ -32,4 +36,5 @@ public class ImageController {
     public ImageRes getPresignedUrlToDownload(@RequestParam(value = "filename") String fileName) throws IOException {
         return imageService.getPresignedUrlToDownload(fileName);
     }
+
 }
