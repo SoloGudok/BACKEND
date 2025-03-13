@@ -49,7 +49,7 @@ public class DashboardServiceImpl implements DashboardService{
 
     @Override
     public List<ChartDTO> getSubTop3() {
-        List<Object[]> results = dashboardRepository.getChart1();
+        List<Object[]> results = dashboardRepository.getChart2();
         return results.stream()
                 .map(this::convertSubTop3ToDTO)
                 .collect(Collectors.toList());

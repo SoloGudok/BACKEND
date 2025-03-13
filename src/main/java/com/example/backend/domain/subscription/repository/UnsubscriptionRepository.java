@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -79,6 +80,39 @@ public interface UnsubscriptionRepository extends JpaRepository<Subscription, Lo
     조합 해지 (조합 구독시) (민규)
     상태 : 미완성
     로직
-    1.
+    1. 해지 창에서 버튼 클릭
+    2.
      */
+    // Membership 테이블의 deleted_at 업데이트 (여러 개의 subscriptionId 처리)
+    @Modifying
+    @Transactional
+    @Query("UPDATE Membership m SET m.deletedAt = CURRENT_TIMESTAMP " +
+            "WHERE m IN (SELECT membership FROM MembershipDetail md WHERE md.subscription.id IN :subscriptionIds) " +
+            "AND m.deletedAt IS NULL")
+    int deleteMembership(@Param("subscriptionIds") List<Long> subscriptionIds);
+
+    // MembershipDetail 테이블의 deleted_at 업데이트 (여러 개의 subscriptionId 처리)
+    @Modifying
+    @Transactional
+    @Query("UPDATE MembershipDetail md SET md.deletedAt = CURRENT_TIMESTAMP " +
+            "WHERE md.subscription.id IN :subscriptionIds AND md.deletedAt IS NULL")
+    int deleteMembershipDetail(@Param("subscriptionIds") List<Long> subscriptionIds);
+
+    // Unsubscription 테이블에 여러 개의 subscriptionId 삽입 (Native Query 사용)
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO unsubscription (approval, service_id, user_id, created_at, modified_at) " +
+            "SELECT 1, s.id, 1, NOW(), NOW() FROM subscription s WHERE s.id IN (:subscriptionIds)", nativeQuery = true)
+    void insertUnsubscriptions(@Param("subscriptionIds") List<Long> subscriptionIds);
+
+    // 단일 해지 -> 여러 개 해지 트랜잭션
+    @Transactional
+    default void processUnsub2(List<Long> subscriptionIds) {
+        // 1. Membership & MembershipDetail 테이블 업데이트
+        deleteMembership(subscriptionIds);
+        deleteMembershipDetail(subscriptionIds);
+
+        // 2. Unsubscription 테이블에 데이터 삽입
+        insertUnsubscriptions(subscriptionIds);
+    }
 }
