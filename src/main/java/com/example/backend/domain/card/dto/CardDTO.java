@@ -3,13 +3,18 @@ package com.example.backend.domain.card.dto;
 import com.example.backend.domain.card.entity.Card;
 import com.example.backend.domain.subscription.dto.CategoryDTO;
 import com.example.backend.domain.subscription.entity.Category;
+import lombok.Data;
 import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@Data
 @NoArgsConstructor
 public class CardDTO {
 

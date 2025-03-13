@@ -40,16 +40,24 @@ dependencies {
 
     // QueryDSL 의존성
     implementation 'com.querydsl:querydsl-jpa:5.1.0:jakarta'
-    annotationProcessor (
-        "jakarta.persistence:jakarta.persistence-api",
-        "jakarta.annotation:jakarta.annotation-api",
-        'com.querydsl:querydsl-apt:5.1.0:jakarta'
+    annotationProcessor(
+            "jakarta.persistence:jakarta.persistence-api",
+            "jakarta.annotation:jakarta.annotation-api",
+            'com.querydsl:querydsl-apt:5.1.0:jakarta'
     )
     // S3 관련 의존성
-    implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.4'
 
-    // Add jakarta.persistence-api dependency
-    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+    //swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+
+    //QueryDsl
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
+    //S3
+    implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.4'
 }
 
 tasks.named('test') {

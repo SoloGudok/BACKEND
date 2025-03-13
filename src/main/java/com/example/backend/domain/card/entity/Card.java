@@ -12,7 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-
 @Table(name = "card")
 public class Card extends BaseTimeEntity {
     @Id
@@ -20,7 +19,7 @@ public class Card extends BaseTimeEntity {
     @Column(nullable = false, columnDefinition = "BIGINT")
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
+    @Column(name="card_name", nullable = false, columnDefinition = "VARCHAR(255)")
     private String cardName;
 
     @Column(nullable = true, columnDefinition = "VARCHAR(500)")
