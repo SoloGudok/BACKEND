@@ -28,4 +28,16 @@ public class Membership extends BaseTimeEntity {
     private User user;
 
 
+    // ✅ 기본 생성자 (JPA에서 필요)
+    protected Membership() {}
+    private int totalPrice; // 🔥 수정: 할인된 가격 저장
+
+    public Membership(User user, int status, int totalPrice) {
+        this.user = user;
+        this.status = status;
+        this.totalPrice = totalPrice;
+    }
+
+
+
 }
