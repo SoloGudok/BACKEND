@@ -15,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -30,7 +28,11 @@ public class SubscriptionController {
         this.subscriptionService = subscriptionService;
     }
 
-
+    // 카테고리별 구독 리스트 조회
+    @GetMapping("/category/{categoryId}")
+    public List<SubscriptionRes> getSubscriptionsByCategoryId(@PathVariable Long categoryId) {
+        return subscriptionService.getSubscriptionsByCategoryId(categoryId);
+    }
 
     @CrossOrigin(origins = "http://localhost:3000")  // React 앱의 URL로 설정
     @GetMapping("/category/{categoryId}/dto")

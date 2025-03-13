@@ -52,6 +52,9 @@ dependencies {
 
     //S3
     implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.4'
+
+    //BCrypt
+    implementation 'org.mindrot:jbcrypt:0.4'
 }
 
 tasks.named('test') {

@@ -44,20 +44,30 @@ public class SubscriptionService {
 
     // ✅ 카테고리 ID로 구독 리스트 조회
     public List<SubscriptionRes> getSubscriptionsByCategoryId(Long categoryId) {
-        return subscriptionRepository.findByCategoryId(categoryId).stream()
+        List<Subscription> subscriptions;
+
+        // categoryId가 없거나 0이면 전체 구독 리스트 반환
+        if (categoryId == null || categoryId == 0) {
+            subscriptions = subscriptionRepository.findAll();
+        } else {
+            subscriptions = subscriptionRepository.findByCategoryId(categoryId);
+        }
+
+        return subscriptions.stream()
                 .map(subscription -> SubscriptionRes.builder()
                         .id(subscription.getId())
                         .name(subscription.getName())
                         .price(subscription.getPrice())
                         .content(subscription.getContent())
                         .homepage(subscription.getHomepage())
+                        .imageUrl(subscription.getImageUrl())
                         .build())
                 .collect(Collectors.toList());
     }
 
     // ✅ 개별 구독 조회
     public List<SubscriptionResponseDto> getIndividualSubscriptions(Long userId) {
-        return membershipDetailRepository.findByMembershipUserIdAndCombinationFalse(userId)
+        return membershipDetailRepository.findActiveMembershipDetailsForUser(userId)
                 .stream()
                 .map(this::toDto)
                 .collect(Collectors.toList());
@@ -66,7 +76,7 @@ public class SubscriptionService {
     // ✅ 조합 구독 조회
     public List<CombinationSubscriptionResponseDto> getCombinationSubscriptions(Long userId) {
         Map<Long, List<MembershipDetail>> groupedDetails = membershipDetailRepository
-                .findByMembershipUserIdAndCombinationTrue(userId)
+                .findActiveCombinationMembershipDetailsForUser(userId)
                 .stream()
                 .collect(Collectors.groupingBy(detail -> detail.getMembership().getId()));
 
