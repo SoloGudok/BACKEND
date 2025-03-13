@@ -1,13 +1,14 @@
 package com.example.backend.domain.card.entity;
-
 import com.example.backend.domain.subscription.entity.Category;
 import com.example.backend.global.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
-
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -31,8 +32,10 @@ public class Card extends BaseTimeEntity {
     @OneToMany(mappedBy = "card", fetch = FetchType.LAZY)
     private List<CardImg> cardImgs;
 
-
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
-    private Category category_id;
+    private Category category;
+
+
+
 }

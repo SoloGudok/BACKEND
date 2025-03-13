@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,10 +69,10 @@
 
 <div class="card-container">
     <div class="card" th:each="card : ${cards}">
-        <!-- cardImgs가 비어있지 않으면 첫 번째 이미지 표시 -->
         <img th:if="${card.cardImgs != null and card.cardImgs.size() > 0}"
-             th:src="@{/card_img/{filename}(filename=${card.cardImgs.get(0).cardImgUrl})}"
+             th:src="@{/card_img/{filename}(filename=${card.cardImgs[0].cardImgUrl})}"
              alt="Card Image">
+
         <div class="card-body">
             <h5 class="card-title" th:text="${card.cardName}">Card Name</h5>
             <p class="card-text" th:text="'Card ID: ' + ${card.id}">Card ID</p>
