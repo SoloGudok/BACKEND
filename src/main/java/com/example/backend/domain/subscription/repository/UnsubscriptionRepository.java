@@ -105,7 +105,7 @@ public interface UnsubscriptionRepository extends JpaRepository<Subscription, Lo
             "SELECT 1, s.id, 1, NOW(), NOW() FROM subscription s WHERE s.id IN (:subscriptionIds)", nativeQuery = true)
     void insertUnsubscriptions(@Param("subscriptionIds") List<Long> subscriptionIds);
 
-    // 단일 해지 -> 여러 개 해지 트랜잭션
+    // 여러 개 해지 트랜잭션
     @Transactional
     default void processUnsub2(List<Long> subscriptionIds) {
         // 1. Membership & MembershipDetail 테이블 업데이트

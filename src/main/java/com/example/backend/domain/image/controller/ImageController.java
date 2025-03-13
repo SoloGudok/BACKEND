@@ -32,4 +32,5 @@ public class ImageController {
     public ImageRes getPresignedUrlToDownload(@RequestParam(value = "filename") String fileName) throws IOException {
         return imageService.getPresignedUrlToDownload(fileName);
     }
+
 }

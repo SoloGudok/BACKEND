@@ -1,5 +1,6 @@
 package com.example.backend.domain.subscription.controller;
 
+import com.example.backend.domain.subscription.dto.UniUnsubscriptionDTO;
 import com.example.backend.domain.subscription.dto.UnsubscriptionDTO;
 import com.example.backend.domain.subscription.service.SubscriptionService;
 import com.example.backend.domain.subscription.service.UnsubscriptionService;
@@ -24,5 +25,12 @@ public class UnsubscriptionController {
     public ResponseEntity<UnsubscriptionDTO> getUnsub(@PathVariable Long id) {
         UnsubscriptionDTO dto = unsubscriptionService.getUnsub(id);
         return ResponseEntity.ok(dto);
+    }
+
+    // 단일 해지 (민규)
+    @PostMapping("/uni_cancel")
+    public ResponseEntity<String> processUniUnsubscription(@RequestBody UniUnsubscriptionDTO requestDTO) {
+        unsubscriptionService.processUnsubscription(requestDTO);
+        return ResponseEntity.ok("해지 요청이 성공적으로 처리되었습니다.");
     }
 }

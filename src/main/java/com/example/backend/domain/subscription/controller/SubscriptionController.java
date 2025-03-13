@@ -29,8 +29,8 @@ public class SubscriptionController {
     }
 
     // 카테고리별 구독 리스트 조회
-    @GetMapping("/category")
-    public List<SubscriptionRes> getSubscriptionsByCategoryId(@RequestParam(required = false) Long categoryId) {
+    @GetMapping("/category/{categoryId}")
+    public List<SubscriptionRes> getSubscriptionsByCategoryId(@PathVariable Long categoryId) {
         return subscriptionService.getSubscriptionsByCategoryId(categoryId);
     }
 
@@ -42,7 +42,7 @@ public class SubscriptionController {
     }
 
 
-    // 기존 구독 리스트
+
     @GetMapping("/individual")
     public ResponseEntity<List<SubscriptionResponseDto>> getIndividualSubscriptions(@RequestParam Long userId) {
         return ResponseEntity.ok(subscriptionService.getIndividualSubscriptions(userId));
