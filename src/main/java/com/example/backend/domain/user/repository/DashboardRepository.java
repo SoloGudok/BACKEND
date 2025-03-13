@@ -19,7 +19,7 @@ public interface DashboardRepository extends JpaRepository<Expenditure, Long> {
             FROM membership_detail md
             LEFT JOIN subscription_img si ON md.subscription_id = si.subscription_id
             LEFT JOIN membership m ON m.id = md.membership_id
-            WHERE m.status = 1
+            WHERE m.status = 1 AND m.deleted_at IS NULL
             """, nativeQuery = true)
     List<String> getSubscribing();
 
