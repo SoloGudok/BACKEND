@@ -19,5 +19,6 @@ public class SubscriptionRes {
     private int price;
     private String content;
     private String homepage;
+    private String imageUrl;
 
 }
