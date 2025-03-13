@@ -26,9 +26,9 @@ public interface UnsubscriptionRepository extends JpaRepository<Subscription, Lo
     @Query(value = "SELECT s.id AS id, s.name AS name, si.subscription_img_url AS subImgUrl " +
             "FROM subscription s " +
             "LEFT JOIN subscription_img si ON s.id = si.subscription_id " +
-            "WHERE s.id = :id",
+            "WHERE s.id IN (:id)",
             nativeQuery = true)
-    UnsubscriptionDTO getSubImg(@Param("id") Long id);
+    List<UnsubscriptionDTO> getSubImg(@Param("id") List<Long> id);
 
     /*
     단일 해지 (민규)
@@ -77,8 +77,8 @@ public interface UnsubscriptionRepository extends JpaRepository<Subscription, Lo
 
 
     /*
-    조합 해지 (조합 구독시) (민규)
-    상태 : 미완성
+    조합 해지 (민규)
+    상태 : 완성
     로직
     1. 해지 창에서 버튼 클릭
     2.

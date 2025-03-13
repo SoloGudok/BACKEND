@@ -1,10 +1,13 @@
 package com.example.backend.domain.subscription.service;
 
+import com.example.backend.domain.subscription.dto.MultiUnsubscriptionDTO;
 import com.example.backend.domain.subscription.dto.UniUnsubscriptionDTO;
 import com.example.backend.domain.subscription.dto.UnsubscriptionDTO;
 import com.example.backend.domain.subscription.repository.UnsubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UnsubscriptionService {
@@ -16,7 +19,7 @@ public class UnsubscriptionService {
     }
 
     // 해지하려고 하는 서비스 이미지 추출 (민규)
-    public UnsubscriptionDTO getUnsub(Long id) {
+    public List<UnsubscriptionDTO> getUnsub(List<Long> id) {
         return unsubscriptionRepository.getSubImg(id);
     }
 
@@ -31,6 +34,16 @@ public class UnsubscriptionService {
             );
         } catch (Exception e) {
             throw new RuntimeException("해지 요청 중 오류 발생: " + e.getMessage());
+        }
+    }
+
+    // 조합 해지 (민규)
+    public void processMultiUnsubscription(MultiUnsubscriptionDTO requestDTO) {
+        try {
+            // 조합 해지 처리
+            unsubscriptionRepository.processUnsub2(requestDTO.getSubscriptionIds());
+        } catch (Exception e) {
+            throw new RuntimeException("조합 해지 요청 중 오류 발생: " + e.getMessage());
         }
     }
 }

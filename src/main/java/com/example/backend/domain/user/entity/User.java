@@ -41,8 +41,8 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false, columnDefinition = "varchar(255)")
     private String phone;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserCard> userCards = new ArrayList<>();
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<UserCard> userCards = new ArrayList<>();
 
 
 }
