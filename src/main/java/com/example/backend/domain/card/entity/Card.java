@@ -1,5 +1,6 @@
 package com.example.backend.domain.card.entity;
 
+import com.example.backend.domain.subscription.entity.Category;
 import com.example.backend.global.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,7 +18,7 @@ public class Card extends BaseTimeEntity {
     @Column(nullable = false, columnDefinition = "BIGINT")
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
+    @Column(name="card_name", nullable = false, columnDefinition = "VARCHAR(255)")
     private String cardName;
 
     @Column(nullable = true, columnDefinition = "VARCHAR(500)")
@@ -30,4 +31,8 @@ public class Card extends BaseTimeEntity {
     @OneToMany(mappedBy = "card", fetch = FetchType.LAZY)
     private List<CardImg> cardImgs;
 
+
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category_id;
 }

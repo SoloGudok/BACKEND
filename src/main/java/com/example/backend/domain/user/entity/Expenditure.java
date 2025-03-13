@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 
+import java.time.LocalDate;
+
 
 @Getter
 @Entity
@@ -40,4 +42,7 @@ public class Expenditure extends BaseTimeEntity {
     @JoinColumn(name = "subscription_id", nullable = true)
     private Subscription subscription;
 
+    public LocalDate getDate() {
+        return this.getCreatedAt().toLocalDate();
+    }
 }

@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Getter
 @Entity
@@ -34,6 +37,20 @@ public class Subscription extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
+
+    // 이미지와 연결 (1:N 관계 - 여러 개 가능)
+    @OneToMany(mappedBy = "subscription", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<SubscriptionImg> images = new ArrayList<>();
+
+    // Subscription 엔티티에서 이미지 URL을 가져오는 메서드
+    public String getImageUrl() {
+        return !images.isEmpty() ? images.get(0).getSubscriptionImgUrl() : null;
+    }
+    @Column(name = "selected", nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
+    private boolean selected = false;
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 
 
 }
