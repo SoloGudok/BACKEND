@@ -51,7 +51,7 @@ SELECT sub.price, sub.category_id, sub.created_at, sub.deleted_at,\s
      SELECT md.subscription_id FROM membership_detail md
      INNER JOIN membership m ON md.membership_id = m.id
      WHERE m.user_id = 1
- ) LIMIT 3
+ )
 """, nativeQuery = true)
     List<Object[]> getSubscriptionRecommendations();
 

@@ -29,4 +29,11 @@ public class MembershipDetail extends BaseTimeEntity {
     @JoinColumn(name = "membership_id", nullable = false)
     private Membership membership;
 
+    // ✅ 필요한 생성자 추가!
+    public MembershipDetail(Membership membership, Subscription subscription, boolean combination) {
+        this.membership = membership;
+        this.subscription = subscription;
+        this.combination = combination;
+    }
+
 }
