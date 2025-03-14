@@ -4,6 +4,7 @@ import com.example.backend.global.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 @ToString
 @Builder
