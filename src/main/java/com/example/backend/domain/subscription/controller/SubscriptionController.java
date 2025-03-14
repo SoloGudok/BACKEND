@@ -4,12 +4,11 @@ import com.example.backend.domain.subscription.dto.CombinationSubscriptionRespon
 import com.example.backend.domain.subscription.dto.SubscriptionDTO;
 import com.example.backend.domain.subscription.dto.SubscriptionRes;
 import com.example.backend.domain.subscription.dto.SubscriptionResponseDto;
-import com.example.backend.domain.subscription.entity.Category;
-import com.example.backend.domain.subscription.entity.Subscription;
+
 import com.example.backend.domain.subscription.service.SubscriptionService;
-import io.swagger.v3.oas.annotations.Operation;
+
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
