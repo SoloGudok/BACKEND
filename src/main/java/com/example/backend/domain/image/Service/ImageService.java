@@ -53,5 +53,4 @@ public class ImageService {
                 .url(amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString())
                 .build();
     }
-
 }
