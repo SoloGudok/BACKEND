@@ -5,8 +5,9 @@ import com.example.backend.global.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.hibernate.annotations.SQLDelete;
+import java.util.List;
+import java.util.ArrayList;
 
-import java.time.LocalDateTime;
 
 
 @Getter
@@ -36,6 +37,23 @@ public class Membership extends BaseTimeEntity {
         this.user = user;
         this.status = status;
         this.totalPrice = totalPrice;
+    }
+
+    // ✅ **이 필드가 없어서 오류 발생했던 것! 추가함**
+    @OneToMany(mappedBy = "membership", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MembershipDetail> membershipDetails = new ArrayList<>();
+
+    public Membership(User user, int status, Long totalPrice) {
+        this.user = user;
+        this.status = status;
+        this.totalPrice = Math.toIntExact(totalPrice);
+        this.membershipDetails = new ArrayList<>();
+    }
+
+    // ✅ **MembershipDetail 추가 메서드**
+    public void addMembershipDetail(MembershipDetail membershipDetail) {
+        this.membershipDetails.add(membershipDetail); // ✅ 리스트에 추가
+
     }
 
 
