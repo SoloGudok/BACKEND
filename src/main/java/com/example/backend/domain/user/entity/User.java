@@ -30,7 +30,7 @@ public class User extends BaseTimeEntity {
     private String name;
 
     @Column(nullable = true, columnDefinition = "varchar(50)")
-    private int gender;
+    private String gender;
 
     @Column(nullable = true, columnDefinition = "TIMESTAMP")
     private Timestamp birth;
