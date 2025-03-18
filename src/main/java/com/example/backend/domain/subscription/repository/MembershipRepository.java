@@ -32,15 +32,18 @@ public interface MembershipRepository extends JpaRepository<Membership, Long> {
     Optional<Membership> findByUserAndSubscriptionIds(@Param("user") User user, @Param("subscriptionIds") List<Long> subscriptionIds);
 
 
-
-
     @Query("SELECT CASE WHEN COUNT(m) > 0 THEN true ELSE false END " +
             "FROM Membership m " +
-            "JOIN MembershipDetail md ON md.membership = m " +
             "WHERE m.user = :user " +
-            "AND md.subscription.id IN :subscriptionIds " +
-            "GROUP BY m.id HAVING COUNT(md) = :size")
+            "AND EXISTS (SELECT 1 FROM MembershipDetail md " +
+            "            WHERE md.membership = m " +
+            "            AND md.subscription.id IN :subscriptionIds " +
+            "            AND md.combination = true) " +  // ✅ BIT 값 비교 (1 → true)
+            "AND (SELECT COUNT(md2) FROM MembershipDetail md2 " +
+            "     WHERE md2.membership = m) = :count")
     boolean existsByUserAndSubscriptionIds(@Param("user") User user,
                                            @Param("subscriptionIds") List<Long> subscriptionIds,
-                                           @Param("size") long size);
+                                           @Param("count") int count);
+
+
 }
