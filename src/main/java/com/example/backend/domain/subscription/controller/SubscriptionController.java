@@ -44,7 +44,7 @@ public class SubscriptionController {
 
     @CrossOrigin(origins = "http://localhost:3000")  // React 앱의 URL로 설정
     @GetMapping("/category/{categoryId}/dto")
-    public ResponseEntity<List<SubscriptionDTO>> getSubscriptionsByCategory(@PathVariable Long categoryId) {
+    public ResponseEntity<List<SubscriptionDTO>> getSubscriptionsByCategory(@PathVariable("categoryId") Long categoryId) {
         List<SubscriptionDTO> subscriptions = subscriptionService.getSubscriptionsByCategory(categoryId);
         return ResponseEntity.ok(subscriptions);
     }

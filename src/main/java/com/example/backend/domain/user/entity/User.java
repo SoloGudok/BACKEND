@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +45,13 @@ public class User extends BaseTimeEntity {
 
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<UserCard> userCards = new ArrayList<>();
-
+    public int calculateAge() {
+        if (birth == null) {
+            return 0;  // birth가 null인 경우, 예외 처리 필요
+        }
+        LocalDate birthDate = birth.toLocalDateTime().toLocalDate();
+        LocalDate currentDate = LocalDate.now();
+        return (int) ChronoUnit.YEARS.between(birthDate, currentDate);
+    }
 
 }
