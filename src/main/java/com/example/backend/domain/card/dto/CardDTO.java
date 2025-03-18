@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @Getter
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class CardDTO {
 
     private Long id;                   // 카드 ID
