@@ -23,7 +23,7 @@ public class UnsubscriptionController {
         this.unsubscriptionService = unsubscriptionService;
     }
 
-    // 해지하려고 하는 서비스 이미지 추출 (민규)
+    // 해지하려고 하는 서비스 이미지 추출 - 1개 or 3개 추출 (민규)
     @GetMapping
     public ResponseEntity<List<UnsubscriptionDTO>> getUnsub(@RequestParam List<Long> id) {
         List<UnsubscriptionDTO> dto = unsubscriptionService.getUnsub(id);

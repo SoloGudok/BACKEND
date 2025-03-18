@@ -8,15 +8,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/expenditure")
 @Tag(name = "Expenditure", description = "소비내역 관련 api입니다.")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class ExpenditureController {
 
     private final ExpenditureService expenditureService;
