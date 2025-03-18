@@ -20,21 +20,6 @@ public class CardController {
 
     private final CardService cardService;
 
-//    @GetMapping("/with-images")
-//    @Operation(summary = "카드 UI 페이지", description = "카드 정보를 Thymeleaf 템플릿과 함께 반환합니다.")
-//    public String getCardsWithImages(Model model) {
-//        List<CardDTO> cards = cardService.getAllCardsWithImages();
-//        model.addAttribute("cards", cards);
-//        return "card/cards";  // ✅ card-list.html 반환
-//    }
-//
-//    @GetMapping("/with-images/json")
-//    @ResponseBody  // ✅ JSON 반환
-//    @Operation(summary = "모든 카드와 이미지 조회 (JSON)", description = "모든 카드와 그에 연결된 이미지 정보를 JSON으로 반환합니다.")
-//    public List<CardDTO> getCardsWithImagesJson() {
-//        return cardService.getAllCardsWithImages();
-//    }
-
     @GetMapping("/with-images-and-category/json")
     @Operation(summary = "모든 카드와 카테고리 조회 (JSON)", description = "모든 카드, 이미지, 카테고리 정보를 JSON으로 반환합니다.")
     public List<CardDTO> getCardsWithImagesAndCategoryJson() {
@@ -55,4 +40,7 @@ public class CardController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
+
 }
+

@@ -25,6 +25,7 @@ public class Subscription extends BaseTimeEntity {
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(255)")
     private String name;
 
+
     @Column(name = "price", nullable = false, columnDefinition = "INT")
     private int price;
 
@@ -51,6 +52,25 @@ public class Subscription extends BaseTimeEntity {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
+
+
+    private String subscriptionName; // ✅ 필드가 있는지 확인!
+
+    public String getSubscriptionName() { // ✅ getter 메서드 확인
+        return subscriptionName;
+    }
+    public Subscription(String subscriptionName, Long price) {
+        this.subscriptionName = subscriptionName;
+        this.price = Math.toIntExact(price);
+    }
+
+
+    // 🔴(수정됨) 생성자 수정 (subscriptionName → name 사용)
+    public Subscription(String name, int price) { // ✅ name 필드로 변경
+        this.name = name;
+        this.price = price;
+    }
+
 
 
 }
