@@ -81,15 +81,15 @@ public class SubscriptionController {
     }
 
 
-    @PutMapping("/unselect/{id}")
-    public ResponseEntity<String> unselectSubscription(@PathVariable Long id) {
-        boolean isUnselected = subscriptionService.unselectSubscriptionById(id);
-        if (isUnselected) {
-            return ResponseEntity.ok("Subscription unselected successfully.");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Subscription not found.");
-        }
-    }
+//    @PutMapping("/unselect/{id}")
+//    public ResponseEntity<String> unselectSubscription(@PathVariable Long id) {
+//        boolean isUnselected = subscriptionService.unselectSubscriptionById(id);
+//        if (isUnselected) {
+//            return ResponseEntity.ok("Subscription unselected successfully.");
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Subscription not found.");
+//        }
+//    }
     /**
      * 모든 구독 서비스 목록을 조회하는 API
      * @return 구독 서비스 리스트

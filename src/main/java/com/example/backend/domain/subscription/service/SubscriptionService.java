@@ -73,6 +73,7 @@ public class SubscriptionService {
                 .collect(Collectors.toList());
     }
 
+
     public List<CombinationSubscriptionResponseDto> getCombinationSubscriptions(Long userId) {
         Map<Long, List<MembershipDetail>> groupedDetails = membershipDetailRepository
                 .findActiveCombinationMembershipDetailsForUser(userId)
