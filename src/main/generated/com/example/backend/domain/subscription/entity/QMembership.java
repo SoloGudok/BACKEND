@@ -37,6 +37,8 @@ public class QMembership extends EntityPathBase<Membership> {
 
     public final NumberPath<Integer> status = createNumber("status", Integer.class);
 
+    public final NumberPath<Integer> totalPrice = createNumber("totalPrice", Integer.class);
+
     public final com.example.backend.domain.user.entity.QUser user;
 
     public QMembership(String variable) {

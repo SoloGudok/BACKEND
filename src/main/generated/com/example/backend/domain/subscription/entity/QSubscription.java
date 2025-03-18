@@ -38,12 +38,16 @@ public class QSubscription extends EntityPathBase<Subscription> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final ListPath<SubscriptionImg, QSubscriptionImg> images = this.<SubscriptionImg, QSubscriptionImg>createList("images", SubscriptionImg.class, QSubscriptionImg.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 
     public final StringPath name = createString("name");
 
     public final NumberPath<Integer> price = createNumber("price", Integer.class);
+
+    public final BooleanPath selected = createBoolean("selected");
 
     public QSubscription(String variable) {
         this(Subscription.class, forVariable(variable), INITS);

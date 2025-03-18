@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,5 +59,34 @@ public class PaymentController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("❌ 요청 처리 중 오류 발생: " + e.getMessage());
         }
     }
+
+    @PostMapping("/single")
+    public ResponseEntity<Map<String, String>> processSinglePayment(@RequestBody Map<String, Object> payload) {
+        Map<String, String> response = new HashMap<>();
+
+        try {
+            Long userId = ((Number) payload.get("userId")).longValue();
+            Long subscriptionId = ((Number) payload.get("subscriptionId")).longValue();
+            Integer combination = (Integer) payload.get("combination"); // 🔥 combination 값을 받기
+
+            System.out.println("✅ [PaymentController] 받은 combination 값: " + combination); // 디버깅용 로그
+
+            boolean success = paymentService.processSinglePayment(userId, subscriptionId, combination);
+
+            if (success) {
+                response.put("message", "✅ 개별 구독 결제가 완료되었습니다.");
+                return ResponseEntity.ok(response);
+            } else {
+                response.put("message", "❌ 개별 결제 처리 실패!");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+            }
+        } catch (Exception e) {
+            response.put("message", "❌ 요청 처리 중 오류 발생: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+
+
+
 
 }

@@ -42,7 +42,17 @@ public class Expenditure extends BaseTimeEntity {
     @JoinColumn(name = "subscription_id", nullable = true)
     private Subscription subscription;
 
+
     public LocalDate getDate() {
         return this.getCreatedAt().toLocalDate();
     }
+
+    public Expenditure(User user, Category category, Subscription subscription, Long amount, String content) {
+        this.user = user;
+        this.category = category;  // ✅ Category 객체를 직접 넣어야 함!
+        this.subscription = subscription;
+        this.amount = Math.toIntExact(amount);
+        this.content = content;
+    }
+
 }

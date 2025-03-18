@@ -14,7 +14,9 @@ public class SubscriptionResponseDto {
     private int price;
     private String content;
     private String homepage;
+    private String imageUrl;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate terminationDate;
 }
+
