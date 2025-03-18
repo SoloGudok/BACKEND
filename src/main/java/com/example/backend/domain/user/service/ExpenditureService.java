@@ -1,5 +1,7 @@
 package com.example.backend.domain.user.service;
 
+import com.example.backend.domain.user.dto.ExpenditureChartReq;
+import com.example.backend.domain.user.dto.ExpenditureChartRes;
 import com.example.backend.domain.user.dto.ExpenditureResponseDto;
 import com.example.backend.domain.user.dto.ExpenditureSummaryDto;
 import com.example.backend.domain.user.entity.Expenditure;
@@ -9,8 +11,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -60,4 +65,11 @@ public class ExpenditureService {
                 nextCursor
         );
     }
+
+    //소비내역 차트 조회 서비스 로직
+    public ExpenditureChartRes getExpenditureChart(ExpenditureChartReq chartDto) {
+        return expenditureRepository.findExpendituresByCriteria(chartDto);
+    }
+
+
 }
