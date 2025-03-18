@@ -16,4 +16,3 @@ public class UserCard {
     @JoinColumn(name = "card_id")
     private Card card;  // Card와의 관계 설정
 }
-

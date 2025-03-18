@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ public class CardDTO {
     private String description;        // 카드 설명
     private List<CardImgDTO> cardImgs; // 카드 이미지 리스트
     private CategoryDTO category;
-
+    private LocalDateTime createdAt;     // `sub.deleted_at` `cd.deleted_at`
     // 카드 정보를 포함하는 생성자
 //    public CardDTO(Long id, String cardName, String shortDescription, String description, List<CardImgDTO> cardImgs, String name) {
 //        this.id = id;
@@ -43,7 +44,7 @@ public class CardDTO {
         this.cardName = card.getCardName();
         this.shortDescription = card.getShortDescription();
         this.description = card.getDescription();
-
+        this.createdAt = card.getCreatedAt();
         this.cardImgs = card.getCardImgs().stream()
                 .map(img -> new CardImgDTO(img.getId(), img.getCardId(), img.getCardImgUrl()))
                 .collect(Collectors.toList());

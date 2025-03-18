@@ -19,8 +19,10 @@ public class UnsubscriptionTests {
     // 해지하려고 하는 서비스 이미지 추출 (민규)
     @Test
     public void test1() {
-        UnsubscriptionDTO result = repo.getSubImg(1L);
-        System.out.println(result);
+        List<UnsubscriptionDTO> results = repo.getSubImg(Arrays.asList(1L, 2L, 3L));
+        for(UnsubscriptionDTO result : results) {
+            System.out.println(result);
+        }
     }
 
     // 단일 해지 (민규)
