@@ -1,9 +1,6 @@
 package com.example.backend.domain.user.service;
 
-import com.example.backend.domain.user.dto.ExpenditureChartReq;
-import com.example.backend.domain.user.dto.ExpenditureChartRes;
-import com.example.backend.domain.user.dto.ExpenditureResponseDto;
-import com.example.backend.domain.user.dto.ExpenditureSummaryDto;
+import com.example.backend.domain.user.dto.*;
 import com.example.backend.domain.user.entity.Expenditure;
 import com.example.backend.domain.user.repository.ExpenditureRepository;
 
@@ -69,6 +66,11 @@ public class ExpenditureService {
     //소비내역 차트 조회 서비스 로직
     public ExpenditureChartRes getExpenditureChart(ExpenditureChartReq chartDto) {
         return expenditureRepository.findExpendituresByCriteria(chartDto);
+    }
+
+    //월별 총 소비, 구독소비
+    public MonthlyExpenditureSummaryDto getExpenditureByMonth(Long userId, int year, int month) {
+        return expenditureRepository.findExpenditureByMonth(userId, year, month);
     }
 
 
