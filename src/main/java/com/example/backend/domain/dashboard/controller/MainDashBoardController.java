@@ -16,13 +16,11 @@ import java.util.HashMap;
 public class MainDashBoardController {
     // 광고 이미지들
     String[] _advertisement_images ={
-            "https://swiperjs.com/demos/images/nature-1.jpg",
-            "https://swiperjs.com/demos/images/nature-2.jpg",
-            "https://swiperjs.com/demos/images/nature-3.jpg",
-            "https://swiperjs.com/demos/images/nature-4.jpg",
-            "https://swiperjs.com/demos/images/nature-5.jpg",
-            "https://swiperjs.com/demos/images/nature-6.jpg",
-            "https://swiperjs.com/demos/images/nature-7.jpg"
+            "https://sologudok-uploaded-files.s3.ap-northeast-2.amazonaws.com/smartbenefit.png",
+            "https://sologudok-uploaded-files.s3.ap-northeast-2.amazonaws.com/naverplusfree.png",
+            "https://sologudok-uploaded-files.s3.ap-northeast-2.amazonaws.com/goodbenefit.png",
+            "https://sologudok-uploaded-files.s3.ap-northeast-2.amazonaws.com/experiencesubpng.png"
+
     };
 
     @GetMapping("/sendDashboardData")
