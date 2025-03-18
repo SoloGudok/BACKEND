@@ -1,14 +1,10 @@
 package com.example.backend.domain.user.controller;
 
-import com.example.backend.domain.user.dto.ExpenditureChartReq;
-import com.example.backend.domain.user.dto.ExpenditureChartRes;
-import com.example.backend.domain.user.dto.ExpenditureRequestDto;
-import com.example.backend.domain.user.dto.ExpenditureResponseDto;
+import com.example.backend.domain.user.dto.*;
 
 import com.example.backend.domain.user.service.ExpenditureService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +51,21 @@ public class ExpenditureController {
     public ResponseEntity<ExpenditureChartRes> getExpenditureChart(@RequestBody ExpenditureChartReq chartDto) {
         ExpenditureChartRes response = expenditureService.getExpenditureChart(chartDto);
         return ResponseEntity.ok(response);
+    }
+
+    /**
+     * 월별 총 소비, 구독 소비 chart API (DTO 기반 요청)
+     *
+     * @RequestBody MonthlyExpenditureSummaryDto 사용자 요청 데이터 (유저ID, 년도, 월)
+     * @return MonthlyExpenditureSummaryDto (구독 소비, 구독 외 소비 총 금액)
+     */
+    @PostMapping("/summary")
+    public ResponseEntity<MonthlyExpenditureSummaryDto> getMonthlySummary(
+            @RequestBody MonthlyExpenditureRequestDto request
+    ) {
+        MonthlyExpenditureSummaryDto result = expenditureService.getExpenditureByMonth(
+                request.getUserId(), request.getYear(), request.getMonth());
+        return ResponseEntity.ok(result);
     }
 
 }

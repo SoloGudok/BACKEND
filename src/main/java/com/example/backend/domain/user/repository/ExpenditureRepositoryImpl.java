@@ -76,23 +76,6 @@ public class ExpenditureRepositoryImpl implements ExpenditureRepositoryCustom {
         return new ExpenditureSummaryDto(totalExpense, totalIncome);
     }
 
-    //소비내역 차트 금액 조회
-//    @Override
-//    public ExpenditureChartRes findExpendituresByCriteria(ExpenditureChartReq requestDto) {
-//        QExpenditure expenditure = QExpenditure.expenditure;
-//
-//        List<ExpenditureDto> expenditures = queryFactory
-//                .select(Projections.constructor(ExpenditureDto.class,
-//                        expenditure.id,
-//                        expenditure.amount,
-//                        expenditure.category.id,
-//                        expenditure.createdAt  // ✅ `yearMonth()` 제거
-//                ))
-//                .from(expenditure)
-//                .fetch();
-//
-//        return new ExpenditureChartRes(expenditures);
-//    }
 
     @Override
     public ExpenditureChartRes findExpendituresByCriteria(ExpenditureChartReq requestDto) {
@@ -189,6 +172,37 @@ public class ExpenditureRepositoryImpl implements ExpenditureRepositoryCustom {
                 avgSubscriptionExpenditure,
                 avgNonSubscriptionExpenditure
         );
+    }
+
+    //월별 총 소비, 구독소비 금액 조회
+    @Override
+    public MonthlyExpenditureSummaryDto findExpenditureByMonth(Long userId, int year, int month) {
+        QExpenditure expenditure = QExpenditure.expenditure;
+
+        // 구독 소비 조건
+        BooleanExpression subscriptionCondition = expenditure.category.id.eq(11L)
+                .or(expenditure.subscription.isNotNull());
+
+        // 삭제되지 않은 소비내역만 조회
+        BooleanExpression notDeletedCondition = expenditure.deletedAt.isNull();
+
+        return queryFactory
+                .select(Projections.constructor(
+                        MonthlyExpenditureSummaryDto.class,
+                        expenditure.amount.sum().as("totalAmount"), // 전체 소비 금액
+                        new CaseBuilder()
+                                .when(subscriptionCondition)
+                                .then(expenditure.amount)
+                                .otherwise(0)
+                                .sum() // 여기에서 sum()을 호출
+                                .as("subscriptionAmount") // 구독 소비 금액
+                ))
+                .from(expenditure)
+                .where(expenditure.user.id.eq(userId)
+                        .and(expenditure.createdAt.year().eq(year))
+                        .and(expenditure.createdAt.month().eq(month))
+                        .and(notDeletedCondition))
+                .fetchOne();
     }
 
 }
