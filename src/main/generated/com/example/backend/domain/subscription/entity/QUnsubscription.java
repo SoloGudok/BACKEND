@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -16,6 +17,8 @@ import com.querydsl.core.types.Path;
 public class QUnsubscription extends EntityPathBase<Unsubscription> {
 
     private static final long serialVersionUID = 285743759L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QUnsubscription unsubscription = new QUnsubscription("unsubscription");
 
@@ -38,16 +41,30 @@ public class QUnsubscription extends EntityPathBase<Unsubscription> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 
+    public final QSubscription subscription;
+
+    public final com.example.backend.domain.user.entity.QUser user;
+
     public QUnsubscription(String variable) {
-        super(Unsubscription.class, forVariable(variable));
+        this(Unsubscription.class, forVariable(variable), INITS);
     }
 
     public QUnsubscription(Path<? extends Unsubscription> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QUnsubscription(PathMetadata metadata) {
-        super(Unsubscription.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QUnsubscription(PathMetadata metadata, PathInits inits) {
+        this(Unsubscription.class, metadata, inits);
+    }
+
+    public QUnsubscription(Class<? extends Unsubscription> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.subscription = inits.isInitialized("subscription") ? new QSubscription(forProperty("subscription"), inits.get("subscription")) : null;
+        this.user = inits.isInitialized("user") ? new com.example.backend.domain.user.entity.QUser(forProperty("user")) : null;
     }
 
 }

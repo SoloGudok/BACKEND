@@ -17,6 +17,7 @@ public interface MembershipRepository extends JpaRepository<Membership, Long> {
     List<Membership> findByUserId(Long userId);
 
 
+
     // ✅ 특정 사용자의 활성화된 Membership 조회
     @Query("SELECT m FROM Membership m WHERE m.user.id = :userId AND m.status = 1")
     List<Membership> findActiveMembershipsByUserId(@Param("userId") Long userId);

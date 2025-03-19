@@ -73,7 +73,7 @@ public class SubscriptionService {
                 .collect(Collectors.toList());
     }
 
-    // ✅ 조합 구독 조회
+
     public List<CombinationSubscriptionResponseDto> getCombinationSubscriptions(Long userId) {
         Map<Long, List<MembershipDetail>> groupedDetails = membershipDetailRepository
                 .findActiveCombinationMembershipDetailsForUser(userId)
@@ -86,6 +86,7 @@ public class SubscriptionService {
                         .subscriptions(entry.getValue().stream()
                                 .map(this::toDto)
                                 .collect(Collectors.toList()))
+                        .terminationDate(entry.getValue().get(0).getCreatedAt().plusMonths(1).toLocalDate()) // ✅ 종료 날짜 설정
                         .build())
                 .collect(Collectors.toList());
     }
@@ -98,6 +99,7 @@ public class SubscriptionService {
                 .price(detail.getSubscription().getPrice())
                 .content(detail.getSubscription().getContent())
                 .homepage(detail.getSubscription().getHomepage())
+                .imageUrl(detail.getSubscription().getImageUrl())
                 .terminationDate(detail.getCreatedAt().plusMonths(1).toLocalDate()) // 해지일 설정
                 .build();
     }
@@ -109,10 +111,6 @@ public class SubscriptionService {
                 .collect(Collectors.toList());
     }
 
-    // ✅ 특정 구독 서비스 조회
-    public SubscriptionDTO getSubscriptionById(Long id) {
-        return subscriptionRepository.findSubscriptionWithImage(id);
-    }
 
     // ✅ 구독 선택 해제
     public boolean unselectSubscriptionById(Long id) {
@@ -133,6 +131,11 @@ public class SubscriptionService {
                 .collect(Collectors.toList());
     }
 
+    public SubscriptionDTO getSubscriptionById(Long subscriptionId) {
+        return subscriptionRepository.findById(subscriptionId)
+                .map(subscription -> new SubscriptionDTO(subscription, subscription.getImageUrl())) // 🔴 (수정됨)
+                .orElse(null);
+    }
 
 
 }
