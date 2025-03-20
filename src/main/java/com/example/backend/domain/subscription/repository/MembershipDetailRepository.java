@@ -26,4 +26,22 @@ public interface MembershipDetailRepository extends JpaRepository<MembershipDeta
             "AND md.combination = true " +
             "AND m.status = 1")
     List<MembershipDetail> findActiveCombinationMembershipDetailsForUser(Long userId);
+
+
+    @Query("SELECT md, md.subscription.name FROM MembershipDetail md " +
+            "JOIN md.membership m " +
+            "JOIN md.subscription s " + // ✅ Subscription 조인 추가
+            "WHERE m.user.id = :userId " +
+            "AND md.subscription.id IN :subscriptionIds")
+    List<MembershipDetail> findByUserIdAndSubscriptionIds(@Param("userId") Long userId,
+                                                          @Param("subscriptionIds") List<Long> subscriptionIds);
+
+    @Query("SELECT md.subscription.name FROM MembershipDetail md " +
+            "JOIN md.membership m " +
+            "WHERE m.user.id = :userId " +
+            "AND md.subscription.id = :subscriptionId")
+    List<String> existsByUserIdAndSubscriptionId(@Param("userId") Long userId,
+                                                 @Param("subscriptionId") Long subscriptionId);
 }
+
+
