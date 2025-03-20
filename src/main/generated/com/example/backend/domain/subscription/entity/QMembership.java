@@ -32,6 +32,8 @@ public class QMembership extends EntityPathBase<Membership> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final ListPath<MembershipDetail, QMembershipDetail> membershipDetails = this.<MembershipDetail, QMembershipDetail>createList("membershipDetails", MembershipDetail.class, QMembershipDetail.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 
