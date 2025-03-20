@@ -44,6 +44,17 @@ public class PaymentService {
             throw new RuntimeException("❌ 일부 구독 서비스를 찾을 수 없습니다.");
         }
 
+
+        // ✅ 이미 구독 중인 서비스 체크 (각 구독 ID마다 개별 확인)
+        for (Long subscriptionId : selectedSubscriptions) {
+            List<String> existingSubscriptionNames =
+                    membershipDetailRepository.existsByUserIdAndSubscriptionId(userId, subscriptionId);
+
+            if (!existingSubscriptionNames.isEmpty()) {
+                throw new RuntimeException("❌ 이미 구독 중인 서비스가 포함되어 있습니다: " + existingSubscriptionNames.get(0));
+            }
+        }
+
         // ✅ 총 가격 계산
         Long totalPrice = subscriptions.stream()
                 .mapToLong(Subscription::getPrice)
@@ -101,6 +112,13 @@ public class PaymentService {
         Subscription subscription = subscriptionRepository.findById(subscriptionId)
                 .orElseThrow(() -> new RuntimeException("❌ 해당 구독 서비스를 찾을 수 없습니다."));
 
+        // ✅ 이미 구독 중인 서비스 체크
+        List<String> existingSubscriptionNames =
+                membershipDetailRepository.existsByUserIdAndSubscriptionId(userId, subscriptionId);
+
+        if (!existingSubscriptionNames.isEmpty()) {
+            throw new RuntimeException("❌ 이미 구독 중인 서비스입니다: " + existingSubscriptionNames.get(0));
+        }
         // ✅ 가격 가져오기
         Long price = (long) subscription.getPrice();
         System.out.println("✅ [PaymentService] 개별 구독 가격: " + price);

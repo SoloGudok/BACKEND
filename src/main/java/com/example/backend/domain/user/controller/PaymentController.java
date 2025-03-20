@@ -54,9 +54,14 @@ public class PaymentController {
             } else {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("❌ 결제 처리 실패!");
             }
+        } catch (RuntimeException e) {
+            // 런타임 예외 (이미 구독 중인 서비스 등) 처리
+            System.out.println("❌ [PaymentController] 런타임 예외 발생: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("❌ " + e.getMessage());
         } catch (Exception e) {
+            // 기타 예외 처리
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("❌ 요청 처리 중 오류 발생: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("❌ 요청 처리 중 오류 발생: " + e.getMessage());
         }
     }
 
@@ -80,12 +85,18 @@ public class PaymentController {
                 response.put("message", "❌ 개별 결제 처리 실패!");
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
             }
-        } catch (Exception e) {
-            response.put("message", "❌ 요청 처리 중 오류 발생: " + e.getMessage());
+        } catch (RuntimeException e) {
+            // 런타임 예외 (이미 구독 중인 서비스 등) 처리
+            System.out.println("❌ [PaymentController] 런타임 예외 발생: " + e.getMessage());
+            response.put("message", "❌ " + e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        } catch (Exception e) {
+            // 기타 예외 처리
+            e.printStackTrace();
+            response.put("message", "❌ 요청 처리 중 오류 발생: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
-
 
 
 
