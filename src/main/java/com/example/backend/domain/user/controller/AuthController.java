@@ -36,8 +36,8 @@ public class AuthController {
         String accessToken = jwtUtil.generateAccessToken(email);
         String refreshToken = jwtUtil.generateRefreshToken(email);
 
-        refreshTokens.put(email, refreshToken); // ✅ 로그인할 때 refreshToken 저장
-        System.out.println("✅ 로그인 성공 - Refresh Token 저장: " + refreshToken);
+        refreshTokens.put(email, refreshToken); // 로그인할 때 refreshToken 저장
+//        System.out.println("로그인 성공 - Refresh Token 저장: " + refreshToken);
 
         Map<String, String> response = new HashMap<>();
         response.put("accessToken", accessToken);
@@ -52,12 +52,12 @@ public class AuthController {
         String refreshToken = request.get("refreshToken");
         String email = jwtUtil.validateToken(refreshToken, true);
 
-        System.out.println("Refresh Token 요청: 이메일 = " + email);
-        System.out.println("요청된 Refresh Token: " + refreshToken);
-        System.out.println("저장된 Refresh Token: " + refreshTokens.get(email));
+//        System.out.println("Refresh Token 요청: 이메일 = " + email);
+//        System.out.println("요청된 Refresh Token: " + refreshToken);
+//        System.out.println("저장된 Refresh Token: " + refreshTokens.get(email));
 
         if (email == null || !refreshToken.equals(refreshTokens.get(email))) {
-            System.out.println("Refresh Token 검증 실패: 저장된 값과 다름!");
+//            System.out.println("Refresh Token 검증 실패: 저장된 값과 다름!");
             return ResponseEntity.status(403).body("Refresh Token이 유효하지 않습니다.");
         }
 

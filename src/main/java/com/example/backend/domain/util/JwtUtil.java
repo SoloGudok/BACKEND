@@ -50,13 +50,13 @@ public class JwtUtil {
                     .parseClaimsJws(token)
                     .getBody();
 
-            System.out.println("Refresh Token 검증 성공, 이메일: " + claims.getSubject()); // ✅ 로그 추가
+//            System.out.println("Refresh Token 검증 성공, 이메일: " + claims.getSubject()); // ✅ 로그 추가
             return claims.getSubject();
         } catch (ExpiredJwtException e) {
-            System.out.println("토큰이 만료되었습니다.");
+//            System.out.println("토큰이 만료되었습니다.");
             return null;
         } catch (JwtException e) {
-            System.out.println("유효하지 않은 토큰: " + e.getMessage());
+//            System.out.println("유효하지 않은 토큰: " + e.getMessage());
             return null;
         }
     }

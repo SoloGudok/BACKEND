@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import com.example.backend.domain.util.JwtUtil;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -48,27 +44,4 @@ public class UserController {
             return ResponseEntity.ok("카드가 없습니다");
         }
     }
-
-
-
-    //hyenho write
-
-
-    @GetMapping("/profile")
-    public ResponseEntity<?> getProfile(@RequestParam("token") String token) {
-
-        System.out.println("연결은 된거야??");
-
-        if (token == null || !token.startsWith("Bearer ")) {
-            return ResponseEntity.status(403).body("토큰이 필요합니다.");
-        }
-
-        String email = jwtUtil.validateToken(token.substring(7), false);
-        if (email == null) {
-            return ResponseEntity.status(401).body("유효하지 않은 토큰");
-        }
-
-        return ResponseEntity.ok("환영합니다, " + email + "!");
-    }
-
 }
