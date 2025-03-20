@@ -41,6 +41,19 @@ public class CardController {
         }
     }
 
+    @GetMapping("/cardadvertisements")
+    @Operation(summary = "카드 광고 이미지 조회", description = "카드 관련 광고 이미지를 반환합니다.")
+    public ResponseEntity<List<String>> getCardAdvertisements() {
+        List<String> advertisementImages = List.of(
+                "https://sologudok-uploaded-files.s3.ap-northeast-2.amazonaws.com/cardadvertisement1.png",
+                "https://sologudok-uploaded-files.s3.ap-northeast-2.amazonaws.com/cardadvertisement2.png",
+                "https://sologudok-uploaded-files.s3.ap-northeast-2.amazonaws.com/cardadvertisement3.png",
+                "https://sologudok-uploaded-files.s3.ap-northeast-2.amazonaws.com/cardadvertisement4.png"
+        );
+
+        return ResponseEntity.ok(advertisementImages);
+    }
+
 
 }
 

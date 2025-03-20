@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+import java.util.Optional;
+
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT ci.cardImgUrl FROM User u " +
@@ -16,5 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "WHERE u.id = :userId")
     List<String> findCardImgUrlsByUserId(@Param("userId") Long userId);
 
+    Optional<User> findByEmail(String email);
 }
 
