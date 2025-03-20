@@ -59,11 +59,11 @@ public class PaymentService {
         Long totalPrice = subscriptions.stream()
                 .mapToLong(Subscription::getPrice)
                 .sum();
-        System.out.println("✅ [PaymentService] 총 금액: " + totalPrice);
+
 
         // ✅ 10% 할인 적용
         long discountedTotalPrice = Math.round(totalPrice * 0.9);
-        System.out.println("✅ [PaymentService] 할인 적용 금액: " + discountedTotalPrice);
+
 
         // ✅ Membership 생성 및 저장
         Membership newMembership = new Membership(user, 1, discountedTotalPrice);
@@ -80,7 +80,7 @@ public class PaymentService {
 
         // ✅ 전체 저장
         membershipRepository.save(newMembership);
-        System.out.println("✅ [PaymentService] 모든 MembershipDetail 저장 완료!");
+
 
         // ✅ 카테고리 ID 11 조회 (🔥 필수)
         Category category = categoryRepository.findById(11L)
@@ -98,7 +98,6 @@ public class PaymentService {
         Expenditure expenditure = new Expenditure(user, category, null, discountedTotalPrice, content);
         expenditureRepository.save(expenditure);
 
-        System.out.println("✅ [PaymentService] Expenditure 저장 완료!");
 
         return true;
     }
@@ -121,8 +120,7 @@ public class PaymentService {
         }
         // ✅ 가격 가져오기
         Long price = (long) subscription.getPrice();
-        System.out.println("✅ [PaymentService] 개별 구독 가격: " + price);
-        System.out.println("✅ [PaymentService] 전달받은 combination 값: " + combination);
+
 
         // 🔥 boolean 값을 int로 변환 (에러 해결)
         boolean isCombination = (combination == 1); // ✅ 추가: 1이면 true, 0이면 false
@@ -137,7 +135,7 @@ public class PaymentService {
         newMembership.addMembershipDetail(membershipDetail);
         membershipRepository.save(newMembership);
 
-        System.out.println("✅ [PaymentService] 개별 Membership 및 MembershipDetail 저장 완료!");
+
 
         // ✅ 카테고리 설정
         Category category = subscription.getCategory();
@@ -148,8 +146,6 @@ public class PaymentService {
         // ✅ Expenditure 저장
         Expenditure expenditure = new Expenditure(user, category, null, price, "개별 구독: " + subscription.getSubscriptionName());
         expenditureRepository.save(expenditure);
-
-        System.out.println("✅ [PaymentService] Expenditure 저장 완료!");
 
         return true;
     }
