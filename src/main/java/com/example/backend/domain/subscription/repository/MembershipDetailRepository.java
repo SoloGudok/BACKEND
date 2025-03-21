@@ -36,10 +36,12 @@ public interface MembershipDetailRepository extends JpaRepository<MembershipDeta
     List<MembershipDetail> findByUserIdAndSubscriptionIds(@Param("userId") Long userId,
                                                           @Param("subscriptionIds") List<Long> subscriptionIds);
 
-    @Query("SELECT md.subscription.name FROM MembershipDetail md " +
+    @Query("SELECT md.subscription.subscriptionName FROM MembershipDetail md " +
             "JOIN md.membership m " +
             "WHERE m.user.id = :userId " +
-            "AND md.subscription.id = :subscriptionId")
+            "AND md.subscription.id = :subscriptionId " +
+            "AND md.deletedAt IS NULL " +  // 활성 구독만 포함
+            "AND m.deletedAt IS NULL")     // 활성 멤버십만 포함
     List<String> existsByUserIdAndSubscriptionId(@Param("userId") Long userId,
                                                  @Param("subscriptionId") Long subscriptionId);
 }
