@@ -68,5 +68,5 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 tasks.named('bootJar') {
-    archiveFileName = 'sologudok-backend.jar' // 원하는 JAR 파일명 설정 가능
+    archiveFileName = 'backend.jar' // 원하는 JAR 파일명 설정 가능
 }

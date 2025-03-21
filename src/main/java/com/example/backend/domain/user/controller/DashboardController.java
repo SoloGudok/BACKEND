@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/dashboard")
 @Log4j2
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost"})
 public class DashboardController {
     private final DashboardService dashboardService;
 

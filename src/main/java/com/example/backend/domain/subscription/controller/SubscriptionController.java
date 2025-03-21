@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:3000") //
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost"}) //
 @RestController
 @RequestMapping("/api/v1/subscription")
 @Tag(name = "Subscription", description = "구독 관련 api입니다.")
@@ -42,7 +42,7 @@ public class SubscriptionController {
         return ResponseEntity.ok(subscription);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")  // React 앱의 URL로 설정
+    @CrossOrigin(origins = {"http://localhost:3000","http://localhost"})  // React 앱의 URL로 설정
     @GetMapping("/category/{categoryId}/dto")
     public ResponseEntity<List<SubscriptionDTO>> getSubscriptionsByCategory(@PathVariable("categoryId") Long categoryId) {
         List<SubscriptionDTO> subscriptions = subscriptionService.getSubscriptionsByCategory(categoryId);

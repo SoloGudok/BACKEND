@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/v1/dashboard")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost"})
 @Tag(name = "DashBoard", description = "대쉬보드 관련 api입니다.")
 public class MainDashBoardController {
     // 광고 이미지들

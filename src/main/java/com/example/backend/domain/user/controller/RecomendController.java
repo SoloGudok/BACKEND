@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/recommend")
 @Log4j2
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost"})
 @Tag(name = "recommend", description = "추천 관련 api입니다.")
 public class RecomendController {
 
