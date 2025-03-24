@@ -16,10 +16,10 @@ import java.util.HashMap;
 public class MainDashBoardController {
     // 광고 이미지들
     String[] _advertisement_images ={
-            "https://sologudok-uploaded-files.s3.ap-northeast-2.amazonaws.com/smartbenefit.png",
-            "https://sologudok-uploaded-files.s3.ap-northeast-2.amazonaws.com/naverplusfree.png",
-            "https://sologudok-uploaded-files.s3.ap-northeast-2.amazonaws.com/goodbenefit.png",
-            "https://sologudok-uploaded-files.s3.ap-northeast-2.amazonaws.com/experiencesubpng.png"
+            "/static/advertisementImg/ad1.png",
+            "/static/advertisementImg/ad2.png",
+            "/static/advertisementImg/ad3.png",
+            "/static/advertisementImg/ad4.png"
 
     };
 
