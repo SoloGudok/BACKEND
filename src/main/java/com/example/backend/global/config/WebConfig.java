@@ -44,5 +44,4 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/cards") // http://localhost:8090/cards
                 .setViewName("card/cards"); // Thymeleaf 실행
     }
-
 }

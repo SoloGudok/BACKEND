@@ -12,6 +12,7 @@ import com.example.backend.domain.subscription.repository.MembershipRepository; 
 import com.example.backend.domain.subscription.repository.SubscriptionRepository;
 import com.example.backend.domain.user.entity.User;
 import com.example.backend.domain.user.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class SubscriptionService {
     private final MembershipDetailRepository membershipDetailRepository;
@@ -106,9 +108,16 @@ public class SubscriptionService {
 
     // ✅ 모든 구독 서비스 목록 조회
     public List<SubscriptionDTO> getAllSubscriptions() {
-        return subscriptionRepository.findAll().stream()
-                .map(s -> new SubscriptionDTO(s, s.getImageUrl()))  // Subscription 객체와 imageUrl을 전달
+        long startTime = System.currentTimeMillis();
+
+        List<SubscriptionDTO> result = subscriptionRepository.findAllWithImages().stream()
+                .map(s -> new SubscriptionDTO(s, s.getImageUrl()))
                 .collect(Collectors.toList());
+
+        long endTime = System.currentTimeMillis();
+        log.info("getAllSubscriptions 실행 시간: {}ms", (endTime - startTime));
+
+        return result;
     }
 
 

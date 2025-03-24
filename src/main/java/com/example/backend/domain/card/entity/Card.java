@@ -7,7 +7,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-@ToString
+@ToString(exclude = {"cardImgs","category"})
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

@@ -31,7 +31,7 @@ public class CardService {
             cards = cardRepository.findByCategoryId(categoryId);
         } else {
             // 카테고리 ID가 없으면 모든 카드 반환
-            cards = cardRepository.findAll();
+            cards = cardRepository.findAllWithImages();
         }
 
         return cards.stream()

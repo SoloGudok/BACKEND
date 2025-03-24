@@ -34,5 +34,8 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
             "WHERE s.category.id = :categoryId")
     List<SubscriptionDTO> findSubscriptionsByCategoryId(@Param("categoryId") Long categoryId);
 
+    @Query("SELECT s FROM Subscription s LEFT JOIN FETCH s.images")
+    List<Subscription> findAllWithImages();
+
 
 }
