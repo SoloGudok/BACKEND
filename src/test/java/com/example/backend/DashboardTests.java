@@ -22,15 +22,15 @@ public class DashboardTests {
         }
     }
 
-
-    // 대시보드 2.1 - 소비 차트 (민규)
-    @Test
-    public void test2() {
-        List<Object[]> result = repo.getChart1();
-        for (Object[] arr : result) {
-            System.out.println(Arrays.toString(arr));
-        }
-    }
+//
+//    // 대시보드 2.1 - 소비 차트 (민규)
+//    @Test
+//    public void test2() {
+//        List<Object[]> result = repo.getChart1();
+//        for (Object[] arr : result) {
+//            System.out.println(Arrays.toString(arr));
+//        }
+//    }
 
     // 대시보드 2.2 - 구독 차트 (민규)
     @Test
