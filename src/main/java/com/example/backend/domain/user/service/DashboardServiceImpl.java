@@ -32,7 +32,7 @@ public class DashboardServiceImpl implements DashboardService{
 
     @Override
     public List<ChartDTO> getExpenditure() {
-        List<Object[]> results = dashboardRepository.getChart1();
+        List<Object[]> results = (List<Object[]>) dashboardRepository.getChart1();
         return results.stream()
                 .map(this::convertExpenditureToDTO)
                 .collect(Collectors.toList());

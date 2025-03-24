@@ -34,28 +34,33 @@ public interface DashboardRepository extends JpaRepository<Expenditure, Long> {
     5. Expenditure에서 전체 sum(amount) - sum(amount) Top 3
      */
     @Query(value = """
-            (SELECT c.name, SUM(e.amount) AS amount
-             FROM expenditure e
-             LEFT JOIN category c ON e.category_id = c.id
-             GROUP BY c.name
-             ORDER BY amount DESC
-             LIMIT 3)
-            
-             UNION ALL
-            
-             (SELECT '기타' AS name,
-                    (SELECT SUM(amount) FROM expenditure) -\s
-                    (SELECT SUM(amount) FROM (
-                        SELECT SUM(e.amount) AS amount
-                        FROM expenditure e
-                        LEFT JOIN category c ON e.category_id = c.id
-                        GROUP BY c.name
-                        ORDER BY amount DESC
-                        LIMIT 3
-                    ) AS top3));
-            """, nativeQuery = true)
-    List<Object[]> getChart1();
-
+        (SELECT c.name, SUM(e.amount) AS amount 
+         FROM expenditure e 
+         LEFT JOIN category c ON e.category_id = c.id
+         WHERE YEAR(e.created_at) = YEAR(CURRENT_DATE()) 
+         AND MONTH(e.created_at) = MONTH(CURRENT_DATE())
+         GROUP BY c.name
+         ORDER BY amount DESC
+         LIMIT 3)
+         
+         UNION ALL
+         
+         (SELECT '기타' AS name,
+                (SELECT SUM(amount) FROM expenditure 
+                 WHERE YEAR(created_at) = YEAR(CURRENT_DATE()) 
+                 AND MONTH(created_at) = MONTH(CURRENT_DATE())) -
+                (SELECT SUM(amount) FROM (
+                    SELECT SUM(e.amount) AS amount
+                    FROM expenditure e
+                    LEFT JOIN category c ON e.category_id = c.id
+                    WHERE YEAR(e.created_at) = YEAR(CURRENT_DATE()) 
+                    AND MONTH(e.created_at) = MONTH(CURRENT_DATE())
+                    GROUP BY c.name
+                    ORDER BY amount DESC
+                    LIMIT 3
+                ) AS top3));
+        """, nativeQuery = true)
+    List<?> getChart1();
     /*
     대시보드 2.2 - 구독 중 top3 (금액 기준) (민규)
     상태 : 완성
