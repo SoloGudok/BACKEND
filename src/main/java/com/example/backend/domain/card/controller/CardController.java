@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")  // 프론트엔드 URL 허용
-@Controller
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost"})  // 프론트엔드 URL 허용
+@RestController
 @RequestMapping("/api/v1/card")
 @Tag(name = "Card", description = "카드 관련 UI 페이지")
 @RequiredArgsConstructor

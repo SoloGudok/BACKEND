@@ -14,14 +14,14 @@ public class WebConfig implements WebMvcConfigurer {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:3000") // React 주소
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:3000", "http://localhost", "http://192.168.0.169") // React 주소
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowCredentials(true);
 
                 // 이미지 경로에 대해서도 CORS 허용
                 registry.addMapping("/subscription_img/**")
-                        .allowedOrigins("http://localhost:3000") // React 주소
+                        .allowedOrigins("http://localhost:3000", "http://localhost", "http://192.168.0.169") // React 주소
                         .allowedMethods("GET", "OPTIONS")
                         .allowCredentials(true);
             }
@@ -44,5 +44,4 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/cards") // http://localhost:8090/cards
                 .setViewName("card/cards"); // Thymeleaf 실행
     }
-
 }

@@ -14,7 +14,7 @@ import com.example.backend.domain.util.JwtUtil;
 @RestController
 @RequestMapping("/api/v1/user")
 @Tag(name = "User", description = "유저 관련 API입니다.")
-@CrossOrigin(origins = "http://localhost:3000") //CORS설정을 클래스 레벨에서
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost"}) //CORS설정을 클래스 레벨에서
 public class UserController {
     private final UserService userService;
     private final JwtUtil jwtUtil;

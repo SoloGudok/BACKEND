@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/expenditure")
 @Tag(name = "Expenditure", description = "소비내역 관련 api입니다.")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost"})
 public class ExpenditureController {
 
     private final ExpenditureService expenditureService;

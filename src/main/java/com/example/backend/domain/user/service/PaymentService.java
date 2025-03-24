@@ -88,7 +88,7 @@ public class PaymentService {
 
         // ✅ 구독 서비스 이름 리스트 가져오기
         List<String> subscriptionNames = newMembership.getMembershipDetails().stream()
-                .map(md -> md.getSubscription().getSubscriptionName())
+                .map(md -> md.getSubscription().getName())
                 .collect(Collectors.toList());
 
         // ✅ content 문자열 만들기
@@ -144,7 +144,7 @@ public class PaymentService {
         }
 
         // ✅ Expenditure 저장
-        Expenditure expenditure = new Expenditure(user, category, null, price, "개별 구독: " + subscription.getSubscriptionName());
+        Expenditure expenditure = new Expenditure(user, category, null, price, "개별 구독: " + subscription.getName());
         expenditureRepository.save(expenditure);
 
         return true;

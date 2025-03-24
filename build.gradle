@@ -66,3 +66,7 @@ tasks.named('test') {
 tasks.withType(JavaCompile).configureEach {
     options.compilerArgs << "-parameters"
 }
+
+tasks.named('bootJar') {
+    archiveFileName = 'backend.jar' // 원하는 JAR 파일명 설정 가능
+}

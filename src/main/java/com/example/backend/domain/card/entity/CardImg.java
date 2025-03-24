@@ -3,7 +3,7 @@ package com.example.backend.domain.card.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@ToString
+@ToString(exclude = "card")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

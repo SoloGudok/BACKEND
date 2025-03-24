@@ -36,7 +36,7 @@ public interface MembershipDetailRepository extends JpaRepository<MembershipDeta
     List<MembershipDetail> findByUserIdAndSubscriptionIds(@Param("userId") Long userId,
                                                           @Param("subscriptionIds") List<Long> subscriptionIds);
 
-    @Query("SELECT md.subscription.subscriptionName FROM MembershipDetail md " +
+    @Query("SELECT md.subscription.name FROM MembershipDetail md " +
             "JOIN md.membership m " +
             "WHERE m.user.id = :userId " +
             "AND md.subscription.id = :subscriptionId " +

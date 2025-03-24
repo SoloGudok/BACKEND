@@ -54,17 +54,6 @@ public class Subscription extends BaseTimeEntity {
     }
 
 
-    private String subscriptionName; // ✅ 필드가 있는지 확인!
-
-    public String getSubscriptionName() { // ✅ getter 메서드 확인
-        return subscriptionName;
-    }
-    public Subscription(String subscriptionName, Long price) {
-        this.subscriptionName = subscriptionName;
-        this.price = Math.toIntExact(price);
-    }
-
-
     // 🔴(수정됨) 생성자 수정 (subscriptionName → name 사용)
     public Subscription(String name, int price) { // ✅ name 필드로 변경
         this.name = name;

@@ -8,8 +8,11 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CardRepository extends JpaRepository<Card, Long> {
-    @Query("SELECT c FROM Card c LEFT JOIN FETCH c.cardImgs LEFT JOIN FETCH c.category")
+    @Query("SELECT DISTINCT c FROM Card c LEFT JOIN FETCH c.cardImgs LEFT JOIN FETCH c.category")
     List<Card> findAllWithImagesAndCategory();
+
+    @Query("SELECT c FROM Card c LEFT JOIN FETCH c.cardImgs i WHERE i.id IS NOT NULL")
+    List<Card> findAllWithImages();
 
     // 단일 카테고리로 검색
     List<Card> findByCategoryId(Long categoryId);
