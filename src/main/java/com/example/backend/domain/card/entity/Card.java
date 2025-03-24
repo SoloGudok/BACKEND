@@ -31,11 +31,11 @@ public class Card extends BaseTimeEntity {
     private String description;
 
     //card와 cardImg의 관계 설정
-    @OneToMany(mappedBy = "card", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "id")
     private List<CardImg> cardImgs;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    @ManyToOne
+    //@JoinColumn(name = "category_id")
     private Category category;
 
 

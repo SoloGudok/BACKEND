@@ -3,7 +3,7 @@ package com.example.backend.domain.card.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@ToString(exclude = "card")
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,12 +20,12 @@ public class CardImg {
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private String cardImgUrl;
 
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="card_id")
-    private Card card;
-
-
-    public Long getCardId() {
-        return card != null ? card.getId() : null; // card가 null이 아니면 card의 ID를 반환
-    }
+//    @ManyToOne(fetch= FetchType.LAZY)
+//    @JoinColumn(name="card_id")
+//    private Card card;
+//
+//
+//    public Long getCardId() {
+//        return card != null ? card.getId() : null; // card가 null이 아니면 card의 ID를 반환
+//    }
 }

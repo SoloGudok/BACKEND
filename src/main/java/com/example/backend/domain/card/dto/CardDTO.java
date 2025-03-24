@@ -46,7 +46,7 @@ public class CardDTO {
         this.description = card.getDescription();
         this.createdAt = card.getCreatedAt();
         this.cardImgs = card.getCardImgs().stream()
-                .map(img -> new CardImgDTO(img.getId(), img.getCardId(), img.getCardImgUrl()))
+                .map(img -> new CardImgDTO(img.getId(), img.getId(), img.getCardImgUrl()))
                 .collect(Collectors.toList());
 
         // 카테고리 정보 포함

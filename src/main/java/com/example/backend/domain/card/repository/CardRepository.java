@@ -11,11 +11,12 @@ public interface CardRepository extends JpaRepository<Card, Long> {
     @Query("SELECT DISTINCT c FROM Card c LEFT JOIN FETCH c.cardImgs LEFT JOIN FETCH c.category")
     List<Card> findAllWithImagesAndCategory();
 
-    @Query("SELECT c FROM Card c LEFT JOIN FETCH c.cardImgs i WHERE i.id IS NOT NULL")
+    @Query("SELECT c FROM Card c LEFT JOIN FETCH c.cardImgs i LEFT JOIN FETCH c.category ca WHERE i.id IS NOT NULL")
     List<Card> findAllWithImages();
 
     // 단일 카테고리로 검색
-    List<Card> findByCategoryId(Long categoryId);
+    @Query("SELECT c FROM Card c LEFT JOIN FETCH c.cardImgs i LEFT JOIN FETCH c.category ca WHERE i.id IS NOT NULL AND ca.id = :categoryId")
+    List<Card> findByCategoryId(@Param("categoryId") Long categoryId);
 
     // 여러 카테고리로 검색 (향후 다중 카테고리 지원 시 사용)
 //    @Query("SELECT c FROM Card c LEFT JOIN FETCH c.cardImgs LEFT JOIN FETCH c.category WHERE c.category.id IN :categoryIds")
